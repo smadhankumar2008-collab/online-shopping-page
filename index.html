@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All In One Online Shopping</title>
+  <!-- Google Fonts: Add some more stylish font choices -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;700;400&family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <!-- BACKGROUND ANIMATION CSS -->
+  <style>
+    /* Animated gradient background effect */
+    body, .backdrop {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .backdrop {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      background: linear-gradient(150deg, #956fd3 0%, #37baf5 40%, #fff5e3 85%, #f5d174 100%);
+      animation: gradientMove 7s ease-in-out infinite alternate;
+      filter: blur(32px) brightness(1.05) contrast(1.09);
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    /* STAR ANIMATION: glitter effect */
+    .star { position: absolute; width: 3px; height: 3px; background: #fff; border-radius: 50%; animation: starMove 12s linear infinite; opacity: 0.45;}
+    @keyframes starMove { 100% { transform: translateY(110vh) scale(0.3); opacity: 0.18; } }
+
+    /* EMOJI ANIMATION */
+    .emoji-animate {
+      position: absolute;
+      font-size: 2.6em;
+      animation: emojiFly 7s linear infinite;
+      pointer-events: none;
+      opacity: 0.70;
+      z-index: 9;
+    }
+    @keyframes emojiFly {
+      0% {
+        transform: translateY(0) scale(1) rotate(-15deg);
+        opacity:0.7;
+      }
+      80% {
+        opacity:0.8;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1.3) rotate(15deg);
+        opacity:0.2;
+      }
+    }
+
+    /* PAPER FLIP ANIMATION for pages */
+    .page {
+      display: none;
+      opacity: 0;
+      pointer-events: none;
+      padding: 22px 0 22px 0;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.65);
+      border-radius: 30px 30px 60px 60px;
+      box-shadow: 0 8px 26px rgba(137,80,201,0.12);
+      transition:
+        opacity 0.8s cubic-bezier(.62,.26,.26,1.31),
+        transform 0.6s cubic-bezier(.81,-0.2,.37,1.13);
+      transform: scale(.98) rotateX(13deg);
+    }
+    .active {
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1) rotateX(0deg);
+    }
+    /* Buttons */
+    .button-centerbox {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    button {
+      padding: 14px 38px;
+      margin: 0 12px;
+      font-size: 1.16em;
+      border-radius: 25px 25px 30px 30px;
+      border: none;
+      background: linear-gradient(93deg, #37baf5 0%, #fff5e3 100%);
+      color: #000;
+      cursor: pointer;
+      font-family: 'Orbitron', 'Montserrat', 'Roboto', Arial, sans-serif;
+      font-weight: 700;
+      box-shadow: 0 3px 19px rgba(19,194,194,0.11);
+      transition:  background .3s, transform .2s, color .3s, box-shadow .2s;
+      display: flex; align-items: center; gap: 14px; justify-content: center;
+      letter-spacing: 2px;
+    }
+    button:active, button:focus {
+      background: linear-gradient(90deg, #f5d174 0%, #81e2ee 90%);
+      color: #5640ad;
+      outline: none;
+      transform: scale(1.07) translateY(-1px);
+    }
+    button:hover {
+      background: linear-gradient(99deg, #fff5e3 0%, #37baf5 100%);
+      color: #37baf5;
+      box-shadow: 0 7px 26px rgba(80,193,244,0.13), 0 1px 10px #f5d1742a;
+      transform: scale(1.04) translateY(-3px);
+    }
+    .category-btn, .sub-btn, .store-btn {
+      background: linear-gradient(110deg, #f5deb3 0%, #fceabb 44%, #a77fc9 100%);
+      color: #353535;
+      border-radius: 18px;
+      font-weight: 700;
+      box-shadow: 0 4px 18px rgba(168,127,201,0.09);
+      font-family: 'Montserrat', 'Orbitron', Arial, sans-serif;
+    }
+    .store-btn {
+      margin-top: 22px;
+      margin-bottom: 13px;
+      background: linear-gradient(120deg, #4347b0 0%, #72d1fa 100%);
+      color: #fff !important;
+      transition: background 0.33s, box-shadow 0.22s;
+    }
+    .store-btn:hover {
+      background: linear-gradient(120deg, #ac45da 0%, #f7d174 100%);
+      color: #272727 !important;
+    }
+    h1 {
+      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+      color: #474ab2;
+      margin-top: 56px;
+      font-size: 3.1em;
+      letter-spacing: 6px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      text-shadow: 2px 2px 14px #f5d174b8, 1px 1px 8px #72d1fa;
+      border-bottom: 6px double #efd4b8;
+      padding-bottom: 14px;
+    }
+    .main-heading-img {
+      width: 62px; height: 62px; object-fit: contain;
+      vertical-align: middle; border-radius: 16px;
+      box-shadow: 0 2.5px 15px #c1e5e5;
+      border: 2px solid #fff5e3;
+    }
+    h2 {
+      color: #af60cf;
+      margin-bottom: 40px;
+      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      font-size: 2em;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 12px #efd4b8;
+    }
+    .tags-list {
+      margin: 34px 0 41px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+    .tag-btn-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 0 4px 0;
+    }
+    .tag-img {
+      width: 72px; height: 72px; object-fit: cover;
+      border-radius: 34%;
+      margin-bottom: 12px;
+      box-shadow: 0 6px 22px #b493fbe3, 0 2px 12px #fff3e9;
+      border: 3.5px solid #fff5e3;
+      transition: box-shadow 0.25s;
+    }
+    .tag-btn-wrapper:hover .tag-img {
+      box-shadow: 0 9px 32px #37baf5b8, 0 3px 24px #f5d1747c;
+      border: 3.5px solid #f5d174;
+    }
+    .store-logo {
+      width:34px; height:34px; object-fit:contain;
+      border-radius: 8px;
+      margin-right: 7px;
+      vertical-align: middle;
+      background: #fff5e3;
+      box-shadow: 0 1px 6px #f5deb365;
+      border: 1.5px solid #efd4b8;
+    }
+    .purchase-wrapper {
+      margin: 40px auto 0 auto;
+      min-height: 205px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 44px;
+      background: linear-gradient(109deg,#f5deb387 0%, #fff5e3a8 100%);
+      border-radius: 29px;
+      box-shadow: 0 4px 20px #efd4b8a2;
+      padding: 20px;
+    }
+    .purchase-title {
+      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+      font-size: 1.3em;
+      margin-bottom: 18px;
+      font-weight: 700;
+      color: #4347b0;
+      letter-spacing: 2.1px;
+      text-shadow: 1px 1px 6px #efd4b8;
+      border-bottom: 3px dotted #af60cf;
+      padding-bottom: 5px;
+    }
+    /* responsive */
+    @media (max-width: 720px) {
+      h1 { font-size: 1.45em; gap: 10px;}
+      h2 { font-size: 1.1em; gap: 7px; }
+      .main-heading-img { width: 31px; height: 31px;}
+      .tag-img { width: 46px; height: 46px;}
+      .store-logo { width:20px; height:20px;}
+      .purchase-title { font-size: 1em;}
+      button { font-size: 1em; padding: 8px 10px;}
+      .purchase-wrapper { min-height: 108px; gap:22px; padding:7px;}
+      .tags-list {gap: 18px;}
+      .page { border-radius: 18px 18px 22px 22px; }
+      .button-centerbox {gap: 7px;}
+    }
+    @media (max-width:450px){
+      h1 { font-size: 1em;}
+      .main-heading-img {width:19px;height:19px;}
+      .tag-img {width:28px;height:28px;}
+      .page {padding: 8px 0 8px 0;}
+    }
+  </style>
+</head>
+<body>
+<!-- Animated backdrop -->
+<div class="backdrop"></div>
+<!-- Small glittering stars animation -->
+<script>
+  // Star animation generator for backdrop
+  for(let i=0;i<38;i++){
+    let star = document.createElement('div');
+    star.className = 'star';
+    star.style.top = Math.random()*98+'vh';
+    star.style.left = Math.random()*98+'vw';
+    star.style.animationDuration = (8+Math.random()*11)+'s';
+    document.body.appendChild(star);
+  }
+
+  // Emoji animation generator
+  const emojis = ['🛒', '🛍️', '📦', '🧴', '👗', '📱', '🕹️', '🪑','🥄','🎁','💡','👠','🦸‍♀️','💎','🍳'];
+  for(let i=0;i<18;i++){
+    let emojiEl = document.createElement('span');
+    emojiEl.className = 'emoji-animate';
+    emojiEl.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+    // Random starting position (left side)
+    emojiEl.style.left = Math.random() * 98 + 'vw';
+    emojiEl.style.bottom = (Math.random()*35+30)+'vh';
+    emojiEl.style.animationDuration = (5+Math.random()*8)+'s';
+    emojiEl.style.animationDelay = (Math.random()*8)+'s';
+    document.body.appendChild(emojiEl);
+  }
+</script>
+
+<!-- Main Page -->
+<div id="page-main" class="page active">
+  <h1>
+    <img src="all in one online shopping.png" alt="shopping" class="main-heading-img">
+    All In One Online Shopping
+  </h1>
+  <div class="button-centerbox">
+    <button onclick="showPage('page-category')">Open 🚀</button>
+  </div>
+</div>
+<!-- Category Selection Page -->
+<div id="page-category" class="page">
+  <h2>
+    <img src="all in one online shopping.png" alt="Category" class="main-heading-img">
+    Select a Category
+  </h2>
+  <div class="tags-list">
+    <div class="tag-btn-wrapper">
+      <img src="phone.jpg" class="tag-img" alt="Mobile"/>
+      <button class="category-btn" onclick="showPage('page-mobile')">Mobile and Accessories</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="https://cdn-icons-png.flaticon.com/512/892/892458.png" class="tag-img" alt="Fashion"/>
+      <button class="category-btn" onclick="showPage('page-fashion')">Fashion and Apparel</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="appliances.jpg" class="tag-img" alt="Home"/>
+      <button class="category-btn" onclick="showPage('page-home')">Home & Kitchen Appliances</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="facecosmetics.jpg" class="tag-img" alt="Beauty"/>
+      <button class="category-btn" onclick="showPage('page-beauty')">Beauty and Personal Care</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="furniture.jpg" class="tag-img" alt="Furniture"/>
+      <button class="category-btn" onclick="showPage('page-furniture')">Furniture & Home Decor</button>
+    </div>
+  </div>
+  <div class="button-centerbox">
+    <button onclick="showPage('page-main')">⬅️ Back</button>
+  </div>
+</div>
+
+<!-- Mobile and Accessories -->
+<div id="page-mobile" class="page">
+  <h2><img src="phone.jpg" class="main-heading-img" alt="Mobile">Mobile and Accessories</h2>
+  <div class="button-centerbox">
+    <button onclick="showPage('page-mobile-list')" class="sub-btn">Start Now 📱</button>
+    <button onclick="showPage('page-category')">⬅️ Back</button>
+  </div>
+</div>
+<div id="page-mobile-list" class="page">
+  <h2><img src="phone.jpg" class="main-heading-img" alt="Brands">Mobile Brands</h2>
+  <div class="tags-list">
+    <div class="tag-btn-wrapper">
+      <img src="mi.jpg" class="tag-img" alt="Xiami"/>
+      <button onclick="purchase('Xiami')">Xiami</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="oneplus.jpg" class="tag-img" alt="Oneplus"/>
+      <button onclick="purchase('Oneplus')">Oneplus</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="vivo.jpg" class="tag-img" alt="Vivo"/>
+      <button onclick="purchase('Vivo')">Vivo</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="moto.jpeg" class="tag-img" alt="Moto"/>
+      <button onclick="purchase('Moto')">Moto</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="realme.jpg" class="tag-img" alt="Realme"/>
+      <button onclick="purchase('Realme')">Realme</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="poco.jpg" class="tag-img" alt="Poco"/>
+      <button onclick="purchase('Poco')">Poco</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="apple.jpeg" class="tag-img" alt="Apple"/>
+      <button onclick="purchase('Apple')">Apple</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="oppo.jpg" class="tag-img" alt="Oppo"/>
+      <button onclick="purchase('Oppo')">Oppo</button>
+    </div>
+  </div>
+  <div class="button-centerbox">
+    <button onclick="showPage('page-mobile')">⬅️ Back</button>
+  </div>
+</div>
+
+<!-- Fashion and Apparel -->
+<div id="page-fashion" class="page">
+  <h2><img src="dress.jpg" class="main-heading-img" alt="Fashion">Fashion and Apparel</h2>
+  <div class="button-centerbox">
+    <button onclick="showPage('page-fashion-list')" class="sub-btn">Start Now 👗</button>
+    <button onclick="showPage('page-category')">⬅️ Back</button>
+  </div>
+</div>
+<div id="page-fashion-list" class="page">
+  <h2><img src="dress.jpg" class="main-heading-img" alt="Fashion-tags">Fashion Tags</h2>
+  <div class="tags-list">
+    <div class="tag-btn-wrapper">
+      <img src="shirt.jpg" class="tag-img" alt="Shirt"/>
+      <button onclick="purchase('Shirt')">Shirt</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="pant.jpg" class="tag-img" alt="Pant"/>
+      <button onclick="purchase('Pant')">Pant</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="shoe.jpg" class="tag-img" alt="Shoe"/>
+      <button onclick="purchase('Shoe')">Shoe</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="accesories.jpg" class="tag-img" alt="Accessories"/>
+      <button onclick="purchase('Accessories')">Accessories</button>
+    </div>
+  </div>
+  <div class="button-centerbox">
+    <button onclick="showPage('page-fashion')">⬅️ Back</button>
+  </div>
+</div>
+
+<!-- Home and Kitchen Appliances -->
+<div id="page-home" class="page">
+  <h2><img src="kitchen.jpg" class="main-heading-img" alt="Home-Appliances">Home and Kitchen Appliances</h2>
+  <div class="button-centerbox">
+    <button onclick="showPage('page-home-list')" class="sub-btn">Start Now 🥄</button>
+    <button onclick="showPage('page-category')">⬅️ Back</button>
+  </div>
+</div>
+<div id="page-home-list" class="page">
+  <h2><img src="appliances.jpg" class="main-heading-img" alt="Appliance-Tags">Appliance Tags</h2>
+  <div class="tags-list">
+    <div class="tag-btn-wrapper">
+      <img src="mixer.jpg" class="tag-img" alt="Mixers"/>
+      <button onclick="purchase('Mixers')">Mixers</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="fridge.jpg" class="tag-img" alt="Refrigerator"/>
+      <button onclick="purchase('Refrigerator')">Refrigerator</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="washigmachine.jpg" class="tag-img" alt="Washing Machine"/>
+      <button onclick="purchase('Washing Machine')">Washing Machine</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="fan.jpg" class="tag-img" alt="Fans"/>
+      <button onclick="purchase('Fans')">Fans</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="lightlogo.jpg" class="tag-img" alt="Light"/>
+      <button onclick="purchase('Light')">Light</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="kitchen.jpg" class="tag-img" alt="Cookware"/>
+      <button onclick="purchase('Cookware')">Cookware</button>
+    </div>
+  </div>
+  <div class="button-centerbox">
+    <button onclick="showPage('page-home')">⬅️ Back</button>
+  </div>
+</div>
+
+<!-- Beauty and Personal Care -->
+<div id="page-beauty" class="page">
+  <h2><img src="cosmeticslogo.jpg" class="main-heading-img" alt="Beauty">Beauty and Personal Care</h2>
+  <div class="button-centerbox">
+    <button onclick="showPage('page-beauty-list')" class="sub-btn">Start Now 💄</button>
+    <button onclick="showPage('page-category')">⬅️ Back</button>
+  </div>
+</div>
+<div id="page-beauty-list" class="page">
+  <h2><img src="facecosmetics.jpg" class="main-heading-img" alt="Beauty-Tags">Beauty Tags</h2>
+  <div class="tags-list">
+    <div class="tag-btn-wrapper">
+      <img src="cosmeticslogo.jpg" class="tag-img" alt="Cosmetics"/>
+      <button onclick="purchase('Cosmetics')">Cosmetics</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="facecosmetics.jpg" class="tag-img" alt="Skincare"/>
+      <button onclick="purchase('Skincare')">Skincare</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="oilcosmetics.jpg" class="tag-img" alt="Haircare"/>
+      <button onclick="purchase('Haircare')">Haircare</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="perfume.jpg" class="tag-img" alt="Perfumes"/>
+      <button onclick="purchase('Perfumes')">Perfumes</button>
+    </div>
+  </div>
+  <div class="button-centerbox">
+    <button onclick="showPage('page-beauty')">⬅️ Back</button>
+  </div>
+</div>
+
+<!-- Furniture and Home Decor -->
+<div id="page-furniture" class="page">
+  <h2><img src="furniture.jpg" class="main-heading-img" alt="Furniture">Furniture and Home Decor</h2>
+  <div class="button-centerbox">
+    <button onclick="showPage('page-furniture-list')" class="sub-btn">Start Now 🪑</button>
+    <button onclick="showPage('page-category')">⬅️ Back</button>
+  </div>
+</div>
+<div id="page-furniture-list" class="page">
+  <h2><img src="furniture.jpg" class="main-heading-img" alt="Furniture-Tags">Furniture and Decor Tags</h2>
+  <div class="tags-list">
+    <div class="tag-btn-wrapper">
+      <img src="sofa.jpg" class="tag-img" alt="Sofas"/>
+      <button onclick="purchase('Sofas')">Sofas</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="bed.jpg" class="tag-img" alt="Beds"/>
+      <button onclick="purchase('Beds')">Beds</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="chair.jpg" class="tag-img" alt="Chairs"/>
+      <button onclick="purchase('Chairs')">Chairs</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="curtain.jpg" class="tag-img" alt="Curtains"/>
+      <button onclick="purchase('Curtains')">Curtains</button>
+    </div>
+    <div class="tag-btn-wrapper">
+      <img src="light.jpg" class="tag-img" alt="Lighting"/>
+      <button onclick="purchase('Lighting')">Lighting</button>
+    </div>
+  </div>
+  <div class="button-centerbox">
+    <button onclick="showPage('page-furniture')">⬅️ Back</button>
+  </div>
+</div>
+
+<!-- Dynamic Store Selection Page -->
+<div id="dynamic-store-select-page"></div>
+
+<script>
+  let previousPage = null;
+  let currentProduct = null;
+
+  // Store mapping for each product/tag: {productName: [{label, url}]}
+  const productStoreMap = {
+    Xiami: [
+      { label: "Flipkart", url: "https://www.flipkart.com/search?q=xiami+mobiles&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off&as-pos=1&as-type=HISTORY" },
+      { label: "Xiami Official Store", url: "https://www.mi.com/in/" }
+    ],
+    Oneplus: [
+      { label: "Amazon", url: "https://www.amazon.com/s?k=oneplus+mobiles&crid=16SZKBCJ9ALCQ&sprefix=oneplus+mobile%2Caps%2C3934&ref=nb_sb_noss_1" },
+      { label: "Oneplus Official Store", url: "https://www.oneplus.in/" }
+    ],
+    Vivo: [
+      { label: "Flipkart", url: "https://www.flipkart.com/search?q=vivo%20mobiles&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off" },
+      { label: "Vivo Official Store", url: "https://www.vivo.com/in/" }
+    ],
+    Moto: [
+      { label: "Flipkart", url: "https://www.flipkart.com/search?q=moto%20mobiles&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off" },
+      { label: "Moto Official Store", url: "https://www.motorola.in/" }
+    ],
+    Realme: [
+      { label: "Amazon", url: "https://www.amazon.com/s?k=realme+mobiles&crid=3EID77UNYC4M6&sprefix=realme+mobiles%2Caps%2C533&ref=nb_sb_noss_1" },
+      { label: "Realme Official Store", url: "https://www.realme.com/in/" }
+    ],
+    Poco: [
+      { label: "Flipkart", url: "https://www.flipkart.com/search?q=poco%20mobiles&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off" },
+      { label: "Poco Official Store", url: "https://www.po.co/in/" }
+    ],
+    Apple: [
+      { label: "Amazon", url: "https://www.flipkart.com/search?q=apple%20mobiles&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off" },
+      { label: "Apple Official Store", url: "https://www.apple.com/in/" }
+    ],
+    Oppo: [
+      { label: "Amazon", url: "https://www.amazon.in/s?k=amazon+oppo+mobile+offers&adgrpid=1316117025194483&hvadid=82257585702889&hvbmt=be&hvdev=c&hvlocphy=143854&hvnetw=o&hvqmt=e&hvtargid=kwd-82258190721206%3Aloc-90&hydadcr=24537_2369339&mcid=06ecf37eabda303faef91e5fdc824953&msclkid=6a9c628a4c4e1620e55a0b950e32167d&tag=msndeskstdin-21&ref=pd_sl_7d0tr92ybk_e" },
+      { label: "Oppo Official Store", url: "https://www.oppo.com/in/" }
+    ],
+    Shirt: [
+      { label: "Myntra", url: "https://www.amazon.in/s?k=amazon+oppo+mobile+offers&adgrpid=1316117025194483&hvadid=82257585702889&hvbmt=be&hvdev=c&hvlocphy=143854&hvnetw=o&hvqmt=e&hvtargid=kwd-82258190721206%3Aloc-90&hydadcr=24537_2369339&mcid=06ecf37eabda303faef91e5fdc824953&msclkid=6a9c628a4c4e1620e55a0b950e32167d&tag=msndeskstdin-21&ref=pd_sl_7d0tr92ybk_e" }
+    ],
+    Pant: [
+      { label: "Ajio", url: "https://www.ajio.com/search/?text=pant%20for%20men%20and%20women" }
+    ],
+    Shoe: [
+      { label: "Adidas", url: "https://shop.adidas.co.in/" },
+      { label: "Puma", url: "https://in.puma.com/" },
+      { label: "Nike", url: "https://www.nike.com/in/" }
+    ],
+    Accessories: [
+      { label: "Saar", url: "https://saarbeautylifestyle.com/search?q=accessories&_pos=5&_psq=access&_ss=e&_v=1.0" }
+    ],
+    Mixers: [
+      { label: "Philips", url: "https://www.domesticappliances.philips.co.in/products/philips-500-watt-2-jar-mixer-grinder-hl7506-00" },
+      { label: "Prestige", url: "https://shop.ttkprestige.com/catalogsearch/result/?q=mixers" }
+    ],
+    Refrigerator: [
+      { label: "Reliance Digital", url: "https://www.reliancedigital.in/products?q=fridge&page_no=1&page_size=12&page_type=number" },
+      { label:"flipkart",url:"https://www.flipkart.com/search?q=fridge&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off"}
+    ],
+    "Washing Machine": [
+      { label: "Amazon", url: "https://www.amazon.in/s?bbn=84514752031&rh=n%3A84514752031%2Cp_85%3A10440599031&_encoding=UTF8&content-id=amzn1.sym.58c90a12-100b-4a2f-8e15-7c06f1abe2be&pd_rd_r=ab7f64c8-5d45-40a2-a1c4-19b6dceb2254&pd_rd_w=tqZly&pd_rd_wg=HEsPi&pf_rd_p=58c90a12-100b-4a2f-8e15-7c06f1abe2be&pf_rd_r=0YB5K7NK3SR6W8QHWXM4&ref=pd_hp_d_atf_unk" },
+      { label: "Flipkart", url: "https://www.flipkart.com/search?q=washing+machine&sid=j9e%2Cabm%2C8qx&as=on&as-show=on&otracker=AS_QueryStore_OrganicAutoSuggest_2_5_na_na_na&otracker1=AS_QueryStore_OrganicAutoSuggest_2_5_na_na_na&as-pos=2&as-type=RECENT&suggestionId=washing+machine%7CWashing+Machines&requestId=00394788-8302-4071-aca6-6e7c7d958140&as-searchtext=washi" }
+    ],
+    Fans: [
+      { label: "Amazon", url: "https://www.amazon.in/s?k=fans&i=kitchen&crid=KTTZ0J8X61V1&sprefix=fans%2Ckitchen%2C2515&ref=nb_sb_noss_2" }
+    ],
+    Light: [
+      { label: "Crompton", url: "https://www.crompton.co.in/pages/lights" }
+    ],
+    Cookware: [
+      { label: "Shopsy", url: "https://www.shopsy.in/search?q=cookware" }
+    ],
+    Cosmetics: [
+      { label: "Nykaa", url: "https://www.nykaa.com/search/result/?q=cosmetics&root=search&searchType=Manual&sourcepage=home" }
+    ],
+    Skincare: [
+      { label: "Nykaa", url: "https://www.nykaa.com/skin/c/8377?search_redirection=True" }
+    ],
+    Haircare: [
+      { label: "Purplle", url: "https://www.purplle.com/search?q=haircare%2520oil" }
+    ],
+    Perfumes: [
+      { label: "Snapdeal", url: "https://www.snapdeal.com/search?clickSrc=top_searches&keyword=luxury%20perfume&categoryId=0&vertical=p&noOfResults=20&SRPID=topsearch&sort=rlvncy" }
+    ],
+    Sofas: [
+      { label: "Wakefit", url: "https://www.wakefit.co/search-result?q=luxary%20sofas" }
+    ],
+    Beds: [
+      { label: "WoodenStreet", url: "https://www.woodenstreet.com/king-size-beds" }
+    ],
+    Chairs: [
+      { label: "WoodenStreet", url: "https://www.woodenstreet.com/lounge-chairs" }
+    ],
+    Curtains: [
+      { label: "Pepperfry", url: "https://www.pepperfry.com/category/curtain-rods-and-tracks.html?from=dive_in&search_text=Curtain%20Rods%20and%20Tracks" }
+    ],
+    Lighting: [
+      { label: "The White Teak Company", url: "https://www.whiteteak.com/decorative-lights/new-arrival/" }
+    ]
+  };
+
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => {
+      p.style.opacity = 0;
+      setTimeout(() => { p.classList.remove('active'); }, 360);
+    });
+    setTimeout(() => {
+      let page = document.getElementById(id);
+      page.classList.add('active');
+      page.style.opacity = 1;
+    }, 385);
+  }
+
+  function purchase(product) {
+    previousPage = document.querySelector('.page.active')?.id || 'page-main';
+    currentProduct = product;
+    renderStoreSelectPage(product);
+    showPage('dynamic-store-select-page');
+  }
+
+  function renderStoreSelectPage(product) {
+    let productKey = product;
+    if (!productStoreMap[productKey]) {
+      productKey = product.charAt(0).toUpperCase() + product.slice(1);
+    }
+    const stores = productStoreMap[productKey] || [];
+    let html = `<div class="purchase-wrapper">
+      <div class="purchase-title">Select a store for "<b>${product}</b>":</div>`;
+    stores.forEach(store => {
+      html += `<button class="store-btn" onclick="window.open('${store.url}', '_blank')">${store.label}</button>`;
+    });
+    html += `<div class="button-centerbox"><button onclick="showPage(previousPage)">⬅️ Back</button></div></div>`;
+    document.getElementById('dynamic-store-select-page').innerHTML = html;
+  }
+</script>
+</body>
+</html>
