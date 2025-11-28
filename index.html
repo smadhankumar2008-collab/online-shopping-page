@@ -2,654 +2,1632 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>All In One Online Shopping</title>
-  <!-- Google Fonts: Add some more stylish font choices -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;700;400&family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <!-- BACKGROUND ANIMATION CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinematic Theme</title>
   <style>
-    /* Animated gradient background effect */
-    body, .backdrop {
+    body {
       margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .backdrop {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      z-index: 0;
-      background: linear-gradient(150deg, #956fd3 0%, #37baf5 40%, #fff5e3 85%, #f5d174 100%);
-      animation: gradientMove 7s ease-in-out infinite alternate;
-      filter: blur(32px) brightness(1.05) contrast(1.09);
-    }
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-
-    /* STAR ANIMATION: glitter effect */
-    .star { position: absolute; width: 3px; height: 3px; background: #fff; border-radius: 50%; animation: starMove 12s linear infinite; opacity: 0.45;}
-    @keyframes starMove { 100% { transform: translateY(110vh) scale(0.3); opacity: 0.18; } }
-
-    /* EMOJI ANIMATION */
-    .emoji-animate {
-      position: absolute;
-      font-size: 2.6em;
-      animation: emojiFly 7s linear infinite;
-      pointer-events: none;
-      opacity: 0.70;
-      z-index: 9;
-    }
-    @keyframes emojiFly {
-      0% {
-        transform: translateY(0) scale(1) rotate(-15deg);
-        opacity:0.7;
-      }
-      80% {
-        opacity:0.8;
-      }
-      100% {
-        transform: translateY(-120vh) scale(1.3) rotate(15deg);
-        opacity:0.2;
-      }
-    }
-
-    /* PAPER FLIP ANIMATION for pages */
-    .page {
-      display: none;
-      opacity: 0;
-      pointer-events: none;
-      padding: 22px 0 22px 0;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      background: rgba(255,255,255,0.65);
-      border-radius: 30px 30px 60px 60px;
-      box-shadow: 0 8px 26px rgba(137,80,201,0.12);
-      transition:
-        opacity 0.8s cubic-bezier(.62,.26,.26,1.31),
-        transform 0.6s cubic-bezier(.81,-0.2,.37,1.13);
-      transform: scale(.98) rotateX(13deg);
-    }
-    .active {
-      display: block;
-      opacity: 1;
-      pointer-events: auto;
-      transform: scale(1) rotateX(0deg);
-    }
-    /* Buttons */
-    .button-centerbox {
+      height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      gap: 16px;
-      margin-bottom: 16px;
+      align-items: center;
+      background: radial-gradient(circle at center, #000000 0%, #000000 100%);
+      font-family: 'Cinzel', serif; /* Elegant cinematic font */
+      color: #101010;
+      overflow: hidden;
     }
-    button {
-      padding: 14px 38px;
-      margin: 0 12px;
-      font-size: 1.16em;
-      border-radius: 25px 25px 30px 30px;
-      border: none;
-      background: linear-gradient(93deg, #37baf5 0%, #fff5e3 100%);
-      color: #000;
-      cursor: pointer;
-      font-family: 'Orbitron', 'Montserrat', 'Roboto', Arial, sans-serif;
-      font-weight: 700;
-      box-shadow: 0 3px 19px rgba(19,194,194,0.11);
-      transition:  background .3s, transform .2s, color .3s, box-shadow .2s;
-      display: flex; align-items: center; gap: 14px; justify-content: center;
-      letter-spacing: 2px;
-    }
-    button:active, button:focus {
-      background: linear-gradient(90deg, #f5d174 0%, #81e2ee 90%);
-      color: #5640ad;
-      outline: none;
-      transform: scale(1.07) translateY(-1px);
-    }
-    button:hover {
-      background: linear-gradient(99deg, #fff5e3 0%, #37baf5 100%);
-      color: #37baf5;
-      box-shadow: 0 7px 26px rgba(80,193,244,0.13), 0 1px 10px #f5d1742a;
-      transform: scale(1.04) translateY(-3px);
-    }
-    .category-btn, .sub-btn, .store-btn {
-      background: linear-gradient(110deg, #f5deb3 0%, #fceabb 44%, #a77fc9 100%);
-      color: #353535;
-      border-radius: 18px;
-      font-weight: 700;
-      box-shadow: 0 4px 18px rgba(168,127,201,0.09);
-      font-family: 'Montserrat', 'Orbitron', Arial, sans-serif;
-    }
-    .store-btn {
-      margin-top: 22px;
-      margin-bottom: 13px;
-      background: linear-gradient(120deg, #4347b0 0%, #72d1fa 100%);
-      color: #fff !important;
-      transition: background 0.33s, box-shadow 0.22s;
-    }
-    .store-btn:hover {
-      background: linear-gradient(120deg, #ac45da 0%, #f7d174 100%);
-      color: #272727 !important;
-    }
+
     h1 {
-      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
-      color: #474ab2;
-      margin-top: 56px;
-      font-size: 3.1em;
-      letter-spacing: 6px;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 30px;
-      text-shadow: 2px 2px 14px #f5d174b8, 1px 1px 8px #72d1fa;
-      border-bottom: 6px double #efd4b8;
-      padding-bottom: 14px;
+      font-size: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-shadow: 0 0 20px rgba(39, 40, 37, 0.8);
+      animation: fadeIn 3s ease-in-out forwards;
     }
-    .main-heading-img {
-      width: 62px; height: 62px; object-fit: contain;
-      vertical-align: middle; border-radius: 16px;
-      box-shadow: 0 2.5px 15px #c1e5e5;
-      border: 2px solid #fff5e3;
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      50% { opacity: 0.5; transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
     }
-    h2 {
-      color: #af60cf;
-      margin-bottom: 40px;
-      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 18px;
-      font-size: 2em;
-      letter-spacing: 2px;
-      text-shadow: 1px 1px 12px #efd4b8;
+
+    /* Cinematic light sweep effect */
+    h1::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+      animation: lightSweep 4s infinite;
     }
-    .tags-list {
-      margin: 34px 0 41px 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-    }
-    .tag-btn-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 12px 0 4px 0;
-    }
-    .tag-img {
-      width: 72px; height: 72px; object-fit: cover;
-      border-radius: 34%;
-      margin-bottom: 12px;
-      box-shadow: 0 6px 22px #b493fbe3, 0 2px 12px #fff3e9;
-      border: 3.5px solid #fff5e3;
-      transition: box-shadow 0.25s;
-    }
-    .tag-btn-wrapper:hover .tag-img {
-      box-shadow: 0 9px 32px #37baf5b8, 0 3px 24px #f5d1747c;
-      border: 3.5px solid #f5d174;
-    }
-    .store-logo {
-      width:34px; height:34px; object-fit:contain;
-      border-radius: 8px;
-      margin-right: 7px;
-      vertical-align: middle;
-      background: #fff5e3;
-      box-shadow: 0 1px 6px #f5deb365;
-      border: 1.5px solid #efd4b8;
-    }
-    .purchase-wrapper {
-      margin: 40px auto 0 auto;
-      min-height: 205px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 44px;
-      background: linear-gradient(109deg,#f5deb387 0%, #fff5e3a8 100%);
-      border-radius: 29px;
-      box-shadow: 0 4px 20px #efd4b8a2;
-      padding: 20px;
-    }
-    .purchase-title {
-      font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
-      font-size: 1.3em;
-      margin-bottom: 18px;
-      font-weight: 700;
-      color: #4347b0;
-      letter-spacing: 2.1px;
-      text-shadow: 1px 1px 6px #efd4b8;
-      border-bottom: 3px dotted #af60cf;
-      padding-bottom: 5px;
-    }
-    /* responsive */
-    @media (max-width: 720px) {
-      h1 { font-size: 1.45em; gap: 10px;}
-      h2 { font-size: 1.1em; gap: 7px; }
-      .main-heading-img { width: 31px; height: 31px;}
-      .tag-img { width: 46px; height: 46px;}
-      .store-logo { width:20px; height:20px;}
-      .purchase-title { font-size: 1em;}
-      button { font-size: 1em; padding: 8px 10px;}
-      .purchase-wrapper { min-height: 108px; gap:22px; padding:7px;}
-      .tags-list {gap: 18px;}
-      .page { border-radius: 18px 18px 22px 22px; }
-      .button-centerbox {gap: 7px;}
-    }
-    @media (max-width:450px){
-      h1 { font-size: 1em;}
-      .main-heading-img {width:19px;height:19px;}
-      .tag-img {width:28px;height:28px;}
-      .page {padding: 8px 0 8px 0;}
+
+    @keyframes lightSweep {
+      0% { left: -100%; }
+      50% { left: 100%; }
+      100% { left: 100%; }
     }
   </style>
 </head>
 <body>
-<!-- Animated backdrop -->
-<div class="backdrop"></div>
-<!-- Small glittering stars animation -->
-<script>
-  // Star animation generator for backdrop
-  for(let i=0;i<38;i++){
-    let star = document.createElement('div');
-    star.className = 'star';
-    star.style.top = Math.random()*98+'vh';
-    star.style.left = Math.random()*98+'vw';
-    star.style.animationDuration = (8+Math.random()*11)+'s';
-    document.body.appendChild(star);
-  }
+  <h1>Welcome to the Show</h1>
+</body>
+</html>
 
-  // Emoji animation generator
-  const emojis = ['🛒', '🛍️', '📦', '🧴', '👗', '📱', '🕹️', '🪑','🥄','🎁','💡','👠','🦸‍♀️','💎','🍳'];
-  for(let i=0;i<18;i++){
-    let emojiEl = document.createElement('span');
-    emojiEl.className = 'emoji-animate';
-    emojiEl.innerText = emojis[Math.floor(Math.random()*emojis.length)];
-    // Random starting position (left side)
-    emojiEl.style.left = Math.random() * 98 + 'vw';
-    emojiEl.style.bottom = (Math.random()*35+30)+'vh';
-    emojiEl.style.animationDuration = (5+Math.random()*8)+'s';
-    emojiEl.style.animationDelay = (Math.random()*8)+'s';
-    document.body.appendChild(emojiEl);
-  }
-</script>
 
-<!-- Main Page -->
-<div id="page-main" class="page active">
-  <h1>
-    <img src="all in one online shopping.png" alt="shopping" class="main-heading-img">
-    All In One Online Shopping
-  </h1>
-  <div class="button-centerbox">
-    <button onclick="showPage('page-category')">Open 🚀</button>
-  </div>
-</div>
-<!-- Category Selection Page -->
-<div id="page-category" class="page">
-  <h2>
-    <img src="all in one online shopping.png" alt="Category" class="main-heading-img">
-    Select a Category
-  </h2>
-  <div class="tags-list">
-    <div class="tag-btn-wrapper">
-      <img src="phone.jpg" class="tag-img" alt="Mobile"/>
-      <button class="category-btn" onclick="showPage('page-mobile')">Mobile and Accessories</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="https://cdn-icons-png.flaticon.com/512/892/892458.png" class="tag-img" alt="Fashion"/>
-      <button class="category-btn" onclick="showPage('page-fashion')">Fashion and Apparel</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="appliances.jpg" class="tag-img" alt="Home"/>
-      <button class="category-btn" onclick="showPage('page-home')">Home & Kitchen Appliances</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="facecosmetics.jpg" class="tag-img" alt="Beauty"/>
-      <button class="category-btn" onclick="showPage('page-beauty')">Beauty and Personal Care</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="furniture.jpg" class="tag-img" alt="Furniture"/>
-      <button class="category-btn" onclick="showPage('page-furniture')">Furniture & Home Decor</button>
-    </div>
-  </div>
-  <div class="button-centerbox">
-    <button onclick="showPage('page-main')">⬅️ Back</button>
-  </div>
-</div>
 
-<!-- Mobile and Accessories -->
-<div id="page-mobile" class="page">
-  <h2><img src="phone.jpg" class="main-heading-img" alt="Mobile">Mobile and Accessories</h2>
-  <div class="button-centerbox">
-    <button onclick="showPage('page-mobile-list')" class="sub-btn">Start Now 📱</button>
-    <button onclick="showPage('page-category')">⬅️ Back</button>
-  </div>
-</div>
-<div id="page-mobile-list" class="page">
-  <h2><img src="phone.jpg" class="main-heading-img" alt="Brands">Mobile Brands</h2>
-  <div class="tags-list">
-    <div class="tag-btn-wrapper">
-      <img src="mi.jpg" class="tag-img" alt="Xiami"/>
-      <button onclick="purchase('Xiami')">Xiami</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="oneplus.jpg" class="tag-img" alt="Oneplus"/>
-      <button onclick="purchase('Oneplus')">Oneplus</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="vivo.jpg" class="tag-img" alt="Vivo"/>
-      <button onclick="purchase('Vivo')">Vivo</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="moto.jpeg" class="tag-img" alt="Moto"/>
-      <button onclick="purchase('Moto')">Moto</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="realme.jpg" class="tag-img" alt="Realme"/>
-      <button onclick="purchase('Realme')">Realme</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="poco.jpg" class="tag-img" alt="Poco"/>
-      <button onclick="purchase('Poco')">Poco</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="apple.jpeg" class="tag-img" alt="Apple"/>
-      <button onclick="purchase('Apple')">Apple</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="oppo.jpg" class="tag-img" alt="Oppo"/>
-      <button onclick="purchase('Oppo')">Oppo</button>
-    </div>
-  </div>
-  <div class="button-centerbox">
-    <button onclick="showPage('page-mobile')">⬅️ Back</button>
-  </div>
-</div>
 
-<!-- Fashion and Apparel -->
-<div id="page-fashion" class="page">
-  <h2><img src="dress.jpg" class="main-heading-img" alt="Fashion">Fashion and Apparel</h2>
-  <div class="button-centerbox">
-    <button onclick="showPage('page-fashion-list')" class="sub-btn">Start Now 👗</button>
-    <button onclick="showPage('page-category')">⬅️ Back</button>
-  </div>
-</div>
-<div id="page-fashion-list" class="page">
-  <h2><img src="dress.jpg" class="main-heading-img" alt="Fashion-tags">Fashion Tags</h2>
-  <div class="tags-list">
-    <div class="tag-btn-wrapper">
-      <img src="shirt.jpg" class="tag-img" alt="Shirt"/>
-      <button onclick="purchase('Shirt')">Shirt</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="pant.jpg" class="tag-img" alt="Pant"/>
-      <button onclick="purchase('Pant')">Pant</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="shoe.jpg" class="tag-img" alt="Shoe"/>
-      <button onclick="purchase('Shoe')">Shoe</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="accesories.jpg" class="tag-img" alt="Accessories"/>
-      <button onclick="purchase('Accessories')">Accessories</button>
-    </div>
-  </div>
-  <div class="button-centerbox">
-    <button onclick="showPage('page-fashion')">⬅️ Back</button>
-  </div>
-</div>
 
-<!-- Home and Kitchen Appliances -->
-<div id="page-home" class="page">
-  <h2><img src="kitchen.jpg" class="main-heading-img" alt="Home-Appliances">Home and Kitchen Appliances</h2>
-  <div class="button-centerbox">
-    <button onclick="showPage('page-home-list')" class="sub-btn">Start Now 🥄</button>
-    <button onclick="showPage('page-category')">⬅️ Back</button>
-  </div>
-</div>
-<div id="page-home-list" class="page">
-  <h2><img src="appliances.jpg" class="main-heading-img" alt="Appliance-Tags">Appliance Tags</h2>
-  <div class="tags-list">
-    <div class="tag-btn-wrapper">
-      <img src="mixer.jpg" class="tag-img" alt="Mixers"/>
-      <button onclick="purchase('Mixers')">Mixers</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="fridge.jpg" class="tag-img" alt="Refrigerator"/>
-      <button onclick="purchase('Refrigerator')">Refrigerator</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="washigmachine.jpg" class="tag-img" alt="Washing Machine"/>
-      <button onclick="purchase('Washing Machine')">Washing Machine</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="fan.jpg" class="tag-img" alt="Fans"/>
-      <button onclick="purchase('Fans')">Fans</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="lightlogo.jpg" class="tag-img" alt="Light"/>
-      <button onclick="purchase('Light')">Light</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="kitchen.jpg" class="tag-img" alt="Cookware"/>
-      <button onclick="purchase('Cookware')">Cookware</button>
-    </div>
-  </div>
-  <div class="button-centerbox">
-    <button onclick="showPage('page-home')">⬅️ Back</button>
-  </div>
-</div>
 
-<!-- Beauty and Personal Care -->
-<div id="page-beauty" class="page">
-  <h2><img src="cosmeticslogo.jpg" class="main-heading-img" alt="Beauty">Beauty and Personal Care</h2>
-  <div class="button-centerbox">
-    <button onclick="showPage('page-beauty-list')" class="sub-btn">Start Now 💄</button>
-    <button onclick="showPage('page-category')">⬅️ Back</button>
-  </div>
-</div>
-<div id="page-beauty-list" class="page">
-  <h2><img src="facecosmetics.jpg" class="main-heading-img" alt="Beauty-Tags">Beauty Tags</h2>
-  <div class="tags-list">
-    <div class="tag-btn-wrapper">
-      <img src="cosmeticslogo.jpg" class="tag-img" alt="Cosmetics"/>
-      <button onclick="purchase('Cosmetics')">Cosmetics</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="facecosmetics.jpg" class="tag-img" alt="Skincare"/>
-      <button onclick="purchase('Skincare')">Skincare</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="oilcosmetics.jpg" class="tag-img" alt="Haircare"/>
-      <button onclick="purchase('Haircare')">Haircare</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="perfume.jpg" class="tag-img" alt="Perfumes"/>
-      <button onclick="purchase('Perfumes')">Perfumes</button>
-    </div>
-  </div>
-  <div class="button-centerbox">
-    <button onclick="showPage('page-beauty')">⬅️ Back</button>
-  </div>
-</div>
 
-<!-- Furniture and Home Decor -->
-<div id="page-furniture" class="page">
-  <h2><img src="furniture.jpg" class="main-heading-img" alt="Furniture">Furniture and Home Decor</h2>
-  <div class="button-centerbox">
-    <button onclick="showPage('page-furniture-list')" class="sub-btn">Start Now 🪑</button>
-    <button onclick="showPage('page-category')">⬅️ Back</button>
-  </div>
-</div>
-<div id="page-furniture-list" class="page">
-  <h2><img src="furniture.jpg" class="main-heading-img" alt="Furniture-Tags">Furniture and Decor Tags</h2>
-  <div class="tags-list">
-    <div class="tag-btn-wrapper">
-      <img src="sofa.jpg" class="tag-img" alt="Sofas"/>
-      <button onclick="purchase('Sofas')">Sofas</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="bed.jpg" class="tag-img" alt="Beds"/>
-      <button onclick="purchase('Beds')">Beds</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="chair.jpg" class="tag-img" alt="Chairs"/>
-      <button onclick="purchase('Chairs')">Chairs</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="curtain.jpg" class="tag-img" alt="Curtains"/>
-      <button onclick="purchase('Curtains')">Curtains</button>
-    </div>
-    <div class="tag-btn-wrapper">
-      <img src="light.jpg" class="tag-img" alt="Lighting"/>
-      <button onclick="purchase('Lighting')">Lighting</button>
-    </div>
-  </div>
-  <div class="button-centerbox">
-    <button onclick="showPage('page-furniture')">⬅️ Back</button>
-  </div>
-</div>
 
-<!-- Dynamic Store Selection Page -->
-<div id="dynamic-store-select-page"></div>
 
-<script>
-  let previousPage = null;
-  let currentProduct = null;
 
-  // Store mapping for each product/tag: {productName: [{label, url}]}
-  const productStoreMap = {
-    Xiami: [
-      { label: "Flipkart", url: "https://www.flipkart.com/search?q=xiami+mobiles&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off&as-pos=1&as-type=HISTORY" },
-      { label: "Xiami Official Store", url: "https://www.mi.com/in/" }
-    ],
-    Oneplus: [
-      { label: "Amazon", url: "https://www.amazon.com/s?k=oneplus+mobiles&crid=16SZKBCJ9ALCQ&sprefix=oneplus+mobile%2Caps%2C3934&ref=nb_sb_noss_1" },
-      { label: "Oneplus Official Store", url: "https://www.oneplus.in/" }
-    ],
-    Vivo: [
-      { label: "Flipkart", url: "https://www.flipkart.com/search?q=vivo%20mobiles&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off" },
-      { label: "Vivo Official Store", url: "https://www.vivo.com/in/" }
-    ],
-    Moto: [
-      { label: "Flipkart", url: "https://www.flipkart.com/search?q=moto%20mobiles&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off" },
-      { label: "Moto Official Store", url: "https://www.motorola.in/" }
-    ],
-    Realme: [
-      { label: "Amazon", url: "https://www.amazon.com/s?k=realme+mobiles&crid=3EID77UNYC4M6&sprefix=realme+mobiles%2Caps%2C533&ref=nb_sb_noss_1" },
-      { label: "Realme Official Store", url: "https://www.realme.com/in/" }
-    ],
-    Poco: [
-      { label: "Flipkart", url: "https://www.flipkart.com/search?q=poco%20mobiles&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off" },
-      { label: "Poco Official Store", url: "https://www.po.co/in/" }
-    ],
-    Apple: [
-      { label: "Amazon", url: "https://www.flipkart.com/search?q=apple%20mobiles&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off" },
-      { label: "Apple Official Store", url: "https://www.apple.com/in/" }
-    ],
-    Oppo: [
-      { label: "Amazon", url: "https://www.amazon.in/s?k=amazon+oppo+mobile+offers&adgrpid=1316117025194483&hvadid=82257585702889&hvbmt=be&hvdev=c&hvlocphy=143854&hvnetw=o&hvqmt=e&hvtargid=kwd-82258190721206%3Aloc-90&hydadcr=24537_2369339&mcid=06ecf37eabda303faef91e5fdc824953&msclkid=6a9c628a4c4e1620e55a0b950e32167d&tag=msndeskstdin-21&ref=pd_sl_7d0tr92ybk_e" },
-      { label: "Oppo Official Store", url: "https://www.oppo.com/in/" }
-    ],
-    Shirt: [
-      { label: "Myntra", url: "https://www.amazon.in/s?k=amazon+oppo+mobile+offers&adgrpid=1316117025194483&hvadid=82257585702889&hvbmt=be&hvdev=c&hvlocphy=143854&hvnetw=o&hvqmt=e&hvtargid=kwd-82258190721206%3Aloc-90&hydadcr=24537_2369339&mcid=06ecf37eabda303faef91e5fdc824953&msclkid=6a9c628a4c4e1620e55a0b950e32167d&tag=msndeskstdin-21&ref=pd_sl_7d0tr92ybk_e" }
-    ],
-    Pant: [
-      { label: "Ajio", url: "https://www.ajio.com/search/?text=pant%20for%20men%20and%20women" }
-    ],
-    Shoe: [
-      { label: "Adidas", url: "https://shop.adidas.co.in/" },
-      { label: "Puma", url: "https://in.puma.com/" },
-      { label: "Nike", url: "https://www.nike.com/in/" }
-    ],
-    Accessories: [
-      { label: "Saar", url: "https://saarbeautylifestyle.com/search?q=accessories&_pos=5&_psq=access&_ss=e&_v=1.0" }
-    ],
-    Mixers: [
-      { label: "Philips", url: "https://www.domesticappliances.philips.co.in/products/philips-500-watt-2-jar-mixer-grinder-hl7506-00" },
-      { label: "Prestige", url: "https://shop.ttkprestige.com/catalogsearch/result/?q=mixers" }
-    ],
-    Refrigerator: [
-      { label: "Reliance Digital", url: "https://www.reliancedigital.in/products?q=fridge&page_no=1&page_size=12&page_type=number" },
-      { label:"flipkart",url:"https://www.flipkart.com/search?q=fridge&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off"}
-    ],
-    "Washing Machine": [
-      { label: "Amazon", url: "https://www.amazon.in/s?bbn=84514752031&rh=n%3A84514752031%2Cp_85%3A10440599031&_encoding=UTF8&content-id=amzn1.sym.58c90a12-100b-4a2f-8e15-7c06f1abe2be&pd_rd_r=ab7f64c8-5d45-40a2-a1c4-19b6dceb2254&pd_rd_w=tqZly&pd_rd_wg=HEsPi&pf_rd_p=58c90a12-100b-4a2f-8e15-7c06f1abe2be&pf_rd_r=0YB5K7NK3SR6W8QHWXM4&ref=pd_hp_d_atf_unk" },
-      { label: "Flipkart", url: "https://www.flipkart.com/search?q=washing+machine&sid=j9e%2Cabm%2C8qx&as=on&as-show=on&otracker=AS_QueryStore_OrganicAutoSuggest_2_5_na_na_na&otracker1=AS_QueryStore_OrganicAutoSuggest_2_5_na_na_na&as-pos=2&as-type=RECENT&suggestionId=washing+machine%7CWashing+Machines&requestId=00394788-8302-4071-aca6-6e7c7d958140&as-searchtext=washi" }
-    ],
-    Fans: [
-      { label: "Amazon", url: "https://www.amazon.in/s?k=fans&i=kitchen&crid=KTTZ0J8X61V1&sprefix=fans%2Ckitchen%2C2515&ref=nb_sb_noss_2" }
-    ],
-    Light: [
-      { label: "Crompton", url: "https://www.crompton.co.in/pages/lights" }
-    ],
-    Cookware: [
-      { label: "Shopsy", url: "https://www.shopsy.in/search?q=cookware" }
-    ],
-    Cosmetics: [
-      { label: "Nykaa", url: "https://www.nykaa.com/search/result/?q=cosmetics&root=search&searchType=Manual&sourcepage=home" }
-    ],
-    Skincare: [
-      { label: "Nykaa", url: "https://www.nykaa.com/skin/c/8377?search_redirection=True" }
-    ],
-    Haircare: [
-      { label: "Purplle", url: "https://www.purplle.com/search?q=haircare%2520oil" }
-    ],
-    Perfumes: [
-      { label: "Snapdeal", url: "https://www.snapdeal.com/search?clickSrc=top_searches&keyword=luxury%20perfume&categoryId=0&vertical=p&noOfResults=20&SRPID=topsearch&sort=rlvncy" }
-    ],
-    Sofas: [
-      { label: "Wakefit", url: "https://www.wakefit.co/search-result?q=luxary%20sofas" }
-    ],
-    Beds: [
-      { label: "WoodenStreet", url: "https://www.woodenstreet.com/king-size-beds" }
-    ],
-    Chairs: [
-      { label: "WoodenStreet", url: "https://www.woodenstreet.com/lounge-chairs" }
-    ],
-    Curtains: [
-      { label: "Pepperfry", url: "https://www.pepperfry.com/category/curtain-rods-and-tracks.html?from=dive_in&search_text=Curtain%20Rods%20and%20Tracks" }
-    ],
-    Lighting: [
-      { label: "The White Teak Company", url: "https://www.whiteteak.com/decorative-lights/new-arrival/" }
-    ]
-  };
 
-  function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => {
-      p.style.opacity = 0;
-      setTimeout(() => { p.classList.remove('active'); }, 360);
-    });
-    setTimeout(() => {
-      let page = document.getElementById(id);
-      page.classList.add('active');
-      page.style.opacity = 1;
-    }, 385);
-  }
 
-  function purchase(product) {
-    previousPage = document.querySelector('.page.active')?.id || 'page-main';
-    currentProduct = product;
-    renderStoreSelectPage(product);
-    showPage('dynamic-store-select-page');
-  }
 
-  function renderStoreSelectPage(product) {
-    let productKey = product;
-    if (!productStoreMap[productKey]) {
-      productKey = product.charAt(0).toUpperCase() + product.slice(1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>All In One Online Shopping</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- Fonts for a classic, advanced and stylish look -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:wght@500;700;900&family=Raleway:wght@400;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* -----------------------
+       THEME: Classic • Advanced • Stylish
+       ----------------------- */
+    :root{
+      --bg-1: #000000;
+      --bg-2: #272525;
+      --accent-1: #ffffff;
+      --accent-2: #080d0f;
+      --muted: #29292b;
+      --glass: rgba(45, 47, 48, 0.75);
+      --glass-2: rgba(42, 45, 45, 0.759);
+      --radius-lg: 38px;
+      --radius-md: 22px;
     }
-    const stores = productStoreMap[productKey] || [];
-    let html = `<div class="purchase-wrapper">
-      <div class="purchase-title">Select a store for "<b>${product}</b>":</div>`;
-    stores.forEach(store => {
-      html += `<button class="store-btn" onclick="window.open('${store.url}', '_blank')">${store.label}</button>`;
+
+    /* Reset & layout */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Raleway','Montserrat','Playfair Display','Roboto', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(120deg, var(--bg-1) 0%, #6e6e70 40%, var(--bg-2) 100%);
+      color: #ffffff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x: hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+    }
+
+    /* Soft animated backdrop */
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: radial-gradient(1200px 600px at 10% 20%, rgba(57, 57, 58, 0.08), transparent 12%),
+                  radial-gradient(900px 500px at 90% 80%, rgba(109, 206, 255, 0.06), transparent 14%);
+      pointer-events:none;
+      filter: blur(26px) saturate(1.03);
+      animation: subtleShift 12s ease-in-out infinite alternate;
+      opacity:0.95;
+    }
+    @keyframes subtleShift {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-8px) scale(1.02); }
+    }
+
+    /* Page container (keeps structure as requested) */
+    .page {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 42px;
+      background: linear-gradient(180deg, var(--glass) 0%, var(--glass-2) 100%);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 14px 40px rgba(209, 209, 209, 0.12), 0 2px 12px rgba(192, 193, 195, 0.04);
+      text-align:center;
+      transform-origin: center;
+      transition: opacity .45s ease, transform .45s cubic-bezier(.2,.9,.3,1);
+      display:none;
+      opacity:0;
+      pointer-events:none;
+    }
+    .page.active{
+      display:block;
+      opacity:1;
+      pointer-events:auto;
+      transform: none;
+    }
+
+    /* Headings - centered & stylish */
+    h1{
+      margin: 0 0 26px 0;
+      font-family: 'Playfair Display','Montserrat', serif;
+      color: var(--accent-1);
+      font-size: 2.8rem;
+      letter-spacing: 6px;
+      font-weight: 900;
+      text-shadow: 0 6px 18px rgba(189, 184, 201, 0.08);
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:center;
+    }
+    .main-heading-img { width:64px; height:64px; object-fit:contain; border-radius:14px; border:3px solid rgba(255,255,255,0.8); box-shadow:0 6px 18px rgba(76,125,255,0.06) }
+
+    h2{
+      margin: 6px 0 28px 0;
+      font-family: 'Raleway','Playfair Display';
+      color: #6a44d8;
+      font-size: 1.9rem;
+      letter-spacing: 2px;
+      font-weight:700;
+    }
+
+    /* Tag list area */
+    .tags-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:28px;
+      justify-content:center;
+      margin-bottom:34px;
+    }
+    .tag-btn-wrapper{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      width:146px;
+      text-align:center;
+    }
+    .tag-img{
+      width:86px; height:86px; object-fit:cover;
+      border-radius:22%;
+      box-shadow: 0 10px 30px rgba(26, 26, 26, 0.08);
+      border:3px solid rgba(54, 51, 51, 0.9);
+      transition: transform .28s ease, box-shadow .28s ease;
+      margin-bottom:12px;
+    }
+    .tag-btn-wrapper:hover .tag-img{ transform: translateY(-6px) scale(1.02); box-shadow:0 18px 40px rgba(120,95,220,0.12) }
+
+    /* Button system - consistent */
+    .button-centerbox{
+      display:flex;
+      gap:18px;
+      justify-content:center;
+      align-items:center;
+      margin-top: 10px;
+      flex-wrap:wrap;
+    }
+
+    /* base button */
+    button{
+      -webkit-tap-highlight-color: transparent;
+      cursor:pointer;
+      border:0;
+      padding:14px 28px;
+      border-radius: 20px;
+      background: linear-gradient(135deg,#fff 0%, #fbf8ff 60%);
+      color: #1e1e28;
+      font-weight:700;
+      letter-spacing: 1px;
+      box-shadow: 0 8px 28px rgba(86,64,177,0.06);
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease, color .22s ease;
+      font-family: 'Montserrat','Raleway','Roboto';
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:visible;
+      min-width: 160px;
+    }
+
+    /* Accent button variants */
+    .category-btn, .sub-btn{
+      background: linear-gradient(135deg,#f6eefc 0%, #eef9ff 100%);
+      color: #3b335d;
+      border-radius: 18px;
+      padding:12px 18px;
+      min-width: 140px;
+    }
+    .store-btn{
+      background: linear-gradient(135deg,#6ea7ff 0%, #8fa8ff 100%);
+      color: #fff;
+      min-width: 220px;
+      font-weight:800;
+      border-radius: 28px;
+    }
+
+    /* Hover & active */
+    button:hover{ transform: translateY(-6px) scale(1.02); box-shadow:0 18px 40px rgba(100,80,200,0.12) }
+    button:active{ transform: translateY(-2px) scale(.995) }
+
+    /* Live theme glow layer: animated pseudo 'shine' inside buttons */
+    .btn-glow{
+      pointer-events:none;
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+      z-index:0;
+    }
+    .glow-inner{
+      position:absolute;
+      width:220%;
+      height:220%;
+      left:-60%;
+      top:-50%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.18) 38%, rgba(255,255,255,0.0) 60%);
+      transform: rotate(18deg);
+      filter: blur(8px);
+      opacity:0.0;
+      transition: all .95s cubic-bezier(.2,.9,.3,1);
+    }
+    /* animated sweep on hover */
+    button:hover .glow-inner{ left:20%; opacity:1; transform: rotate(10deg) }
+    /* pulsing halo */
+    .btn-halo{
+      position:absolute;
+      inset:-6px;
+      border-radius:inherit;
+      pointer-events:none;
+      z-index:-1;
+      background: radial-gradient(60% 60% at 10% 20%, rgba(122, 85, 224, 0.12), transparent 18%),
+                  radial-gradient(40% 40% at 90% 80%, rgba(81, 189, 236, 0.06), transparent 18%);
+      transition: opacity .3s;
+      opacity:0.8;
+      filter: blur(14px);
+    }
+    button:hover .btn-halo{ opacity:1 }
+
+    /* Purchase wrapper (store select / price-range page) */
+    .purchase-wrapper{
+      margin: 18px auto 0;
+      padding: 28px;
+      max-width:720px;
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+      align-items:center;
+      border-radius: 22px;
+      background: rgba(123, 123, 123, 0.86);
+      box-shadow: 0 8px 36px rgba(133, 132, 238, 0.06);
+    }
+    .purchase-title{
+      font-size:1.2rem;
+      color: var(--accent-1);
+      font-weight:800;
+      letter-spacing:1px;
+    }
+
+    /* Small layout for the 3/4 stacked store options */
+    .store-option{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background: rgba(255,255,255,0.06);
+      padding:10px 16px;
+      border-radius: 12px;
+      gap:12px;
+    }
+    .store-option p{ margin:0; color: #fff; font-weight:700; }
+    .store-option .small-btn{ min-width:120px; background: linear-gradient(135deg,#fffaea 0%, #fff4ff 100%); color:#2b2550; padding:8px 12px; border-radius:12px; font-weight:800; }
+
+    /* Responsive */
+    @media (max-width:860px){
+      body{padding:18px}
+      .page{padding:28px}
+      .tag-btn-wrapper{width:128px}
+      .tag-img{width:70px;height:70px}
+      .main-heading-img{width:52px;height:52px}
+    }
+    @media (max-width:520px){
+      h1{font-size:1.35rem; letter-spacing:3px}
+      h2{font-size:1.1rem}
+      .tags-list{gap:18px}
+      .tag-btn-wrapper{width:110px}
+      button{min-width:unset;padding:10px 14px}
+      .store-btn{min-width:unset}
+      .store-option{flex-direction:column; align-items:flex-start;}
+      .store-option .small-btn{align-self:flex-end;}
+    }
+  </style>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+
+  <!-- Main Page -->
+  <div id="page-main" class="page active" role="main" aria-labelledby="main-heading">
+    <h1 id="main-heading">
+      <img src="all in one online shopping.png" alt="shopping" class="main-heading-img">
+      All In One Online Shopping with best online platform suggestion
+    </h1>
+
+    <div class="button-centerbox" aria-hidden="false">
+      <button onclick="showPage('page-category')" aria-label="Open store">
+        <span style="z-index:2;position:relative">Open 🚀</span>
+        <div class="btn-glow"><div class="glow-inner"></div></div>
+        <div class="btn-halo"></div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Category Selection Page -->
+  <div id="page-category" class="page" role="region" aria-labelledby="cat-heading">
+    <h2 id="cat-heading">
+      <img src="all in one online shopping.png" alt="" class="main-heading-img" style="width:48px;height:48px">
+      Select a Category
+    </h2>
+
+    <div class="tags-list">
+      <div class="tag-btn-wrapper">
+        <img src="phone.jpg" class="tag-img" alt="Mobile"/>
+        <button class="category-btn" onclick="showPage('page-mobile')">
+          <span style="z-index:2;position:relative">Mobile and Accessories</span>
+          <div class="btn-glow"><div class="glow-inner"></div></div>
+          <div class="btn-halo"></div>
+        </button>
+      </div>
+
+      <div class="tag-btn-wrapper">
+        <img src="https://cdn-icons-png.flaticon.com/512/892/892458.png" class="tag-img" alt="Fashion"/>
+        <button class="category-btn" onclick="showPage('page-fashion')">
+          <span style="z-index:2;position:relative">Fashion and Apparel</span>
+          <div class="btn-glow"><div class="glow-inner"></div></div>
+          <div class="btn-halo"></div>
+        </button>
+      </div>
+
+      <div class="tag-btn-wrapper">
+        <img src="appliances.jpg" class="tag-img" alt="Home"/>
+        <button class="category-btn" onclick="showPage('page-home')">
+          <span style="z-index:2;position:relative">Home & Kitchen Appliances</span>
+          <div class="btn-glow"><div class="glow-inner"></div></div>
+          <div class="btn-halo"></div>
+        </button>
+      </div>
+
+      <div class="tag-btn-wrapper">
+        <img src="facecosmetics.jpg" class="tag-img" alt="Beauty"/>
+        <button class="category-btn" onclick="showPage('page-beauty')">
+          <span style="z-index:2;position:relative">Beauty and Personal Care</span>
+          <div class="btn-glow"><div class="glow-inner"></div></div>
+          <div class="btn-halo"></div>
+        </button>
+      </div>
+
+      <div class="tag-btn-wrapper">
+        <img src="furniture.jpg" class="tag-img" alt="Furniture"/>
+        <button class="category-btn" onclick="showPage('page-furniture')">
+          <span style="z-index:2;position:relative">Furniture & Home Decor</span>
+          <div class="btn-glow"><div class="glow-inner"></div></div>
+          <div class="btn-halo"></div>
+        </button>
+      </div>
+    </div>
+
+    <div class="button-centerbox">
+      <button onclick="showPage('page-main')">
+        <span style="z-index:2;position:relative">⬅️ Back</span>
+        <div class="btn-glow"><div class="glow-inner"></div></div>
+        <div class="btn-halo"></div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile and Accessories -->
+  <div id="page-mobile" class="page">
+    <h2><img src="phone.jpg" class="main-heading-img" alt="">Mobile and Accessories</h2>
+    <div class="button-centerbox">
+      <button class="sub-btn" onclick="showPage('page-mobile-list')">
+        <span style="z-index:2;position:relative">Start Now 📱</span>
+        <div class="btn-glow"><div class="glow-inner"></div></div>
+      </button>
+      <button onclick="showPage('page-category')">
+        <span style="z-index:2;position:relative">⬅️ Back</span>
+        <div class="btn-glow"><div class="glow-inner"></div></div>
+      </button>
+    </div>
+  </div>
+
+  <div id="page-mobile-list" class="page">
+    <h2><img src="phone.jpg" class="main-heading-img" alt="">Mobile Brands</h2>
+    <div class="tags-list">
+      <div class="tag-btn-wrapper">
+        <img src="mi.jpg" class="tag-img" alt="Xiami"/>
+        <button onclick="purchase('Xiami')">Xiami<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="oneplus.jpg" class="tag-img" alt="Oneplus"/>
+        <button onclick="purchase('Oneplus')">Oneplus<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="vivo.jpg" class="tag-img" alt="Vivo"/>
+        <button onclick="purchase('Vivo')">Vivo<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="moto.jpeg" class="tag-img" alt="Moto"/>
+        <button onclick="purchase('Moto')">Moto<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="realme.jpg" class="tag-img" alt="Realme"/>
+        <button onclick="purchase('Realme')">Realme<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="poco.jpg" class="tag-img" alt="Poco"/>
+        <button onclick="purchase('Poco')">Poco<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="apple.jpeg" class="tag-img" alt="Apple"/>
+        <button onclick="purchase('Apple')">Apple<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="oppo.jpg" class="tag-img" alt="Oppo"/>
+        <button onclick="purchase('Oppo')">Oppo<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+    </div>
+
+    <div class="button-centerbox">
+      <button onclick="showPage('page-mobile')">⬅️ Back<div class="btn-glow"><div class="glow-inner"></div></div></button>
+    </div>
+  </div>
+
+  <!-- Fashion and Apparel -->
+  <div id="page-fashion" class="page">
+    <h2><img src="fashion.jpeg" class="main-heading-img" alt="">Fashion and Apparel</h2>
+    <div class="button-centerbox">
+      <button class="sub-btn" onclick="showPage('page-fashion-list')">Start Now 👗<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      <button onclick="showPage('page-category')">⬅️ Back<div class="btn-glow"><div class="glow-inner"></div></div></button>
+    </div>
+  </div>
+
+  <div id="page-fashion-list" class="page">
+    <h2><img src="fashion.jpeg" class="main-heading-img" alt="">Fashion Tags</h2>
+    <div class="tags-list">
+      <div class="tag-btn-wrapper">
+        <img src="dress.jpg" class="tag-img" alt="Shirt"/>
+        <button onclick="showPriceRangePage('Shirt')">Shirt<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="pant.jpg" class="tag-img" alt="Pant"/>
+        <button onclick="showPriceRangePage('Pant')">Pant<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="shoe.jpg" class="tag-img" alt="Shoe"/>
+        <button onclick="showPriceRangePage('Shoe')">Shoe<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="accesories.jpg" class="tag-img" alt="Accessories"/>
+        <button onclick="showPriceRangePage('Accessories')">Accessories<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+    </div>
+    <div class="button-centerbox"><button onclick="showPage('page-fashion')">⬅️ Back<div class="btn-glow"><div class="glow-inner"></div></div></button></div>
+  </div>
+
+  <!-- Home and Kitchen Appliances -->
+  <div id="page-home" class="page">
+    <h2><img src="kitchen.jpg" class="main-heading-img" alt="">Home and Kitchen Appliances</h2>
+    <div class="button-centerbox">
+      <button class="sub-btn" onclick="showPage('page-home-list')">Start Now 🥄<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      <button onclick="showPage('page-category')">⬅️ Back<div class="btn-glow"><div class="glow-inner"></div></div></button>
+    </div>
+  </div>
+
+  <div id="page-home-list" class="page">
+    <h2><img src="appliances.jpg" class="main-heading-img" alt="">Appliance Tags</h2>
+    <div class="tags-list">
+      <div class="tag-btn-wrapper">
+        <img src="mixer.jpg" class="tag-img" alt="Mixers"/>
+        <button onclick="showPriceRangePage('Mixers')">Mixers<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="fridge.jpg" class="tag-img" alt="Refrigerator"/>
+        <button onclick="showPriceRangePage('Refrigerator')">Refrigerator<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="washigmachine.jpg" class="tag-img" alt="Washing Machine"/>
+        <button onclick="showPriceRangePage('Washing Machine')">Washing Machine<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="fan.jpg" class="tag-img" alt="Fans"/>
+        <button onclick="showPriceRangePage('Fans')">Fans<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="lightlogo.jpg" class="tag-img" alt="Light"/>
+        <button onclick="showPriceRangePage('Light')">Light<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="kitchen.jpg" class="tag-img" alt="Cookware"/>
+        <button onclick="purchase('Cookware')">Cookware<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+    </div>
+
+    <div class="button-centerbox"><button onclick="showPage('page-home')">⬅️ Back<div class="btn-glow"><div class="glow-inner"></div></div></button></div>
+  </div>
+
+  <!-- Beauty and Personal Care -->
+  <div id="page-beauty" class="page">
+    <h2><img src="cosmeticslogo.jpg" class="main-heading-img" alt="">Beauty and Personal Care</h2>
+    <div class="button-centerbox">
+      <button class="sub-btn" onclick="showPage('page-beauty-list')">Start Now 💄<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      <button onclick="showPage('page-category')">⬅️ Back<div class="btn-glow"><div class="glow-inner"></div></div></button>
+    </div>
+  </div>
+
+  <div id="page-beauty-list" class="page">
+    <h2><img src="facecosmetics.jpg" class="main-heading-img" alt="">Beauty Tags</h2>
+    <div class="tags-list">
+      <div class="tag-btn-wrapper">
+        <img src="cosmeticslogo.jpg" class="tag-img" alt="Cosmetics"/>
+        <button onclick="purchase('Cosmetics')">Cosmetics<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="facecosmetics.jpg" class="tag-img" alt="Skincare"/>
+        <button onclick="purchase('Skincare')">Skincare<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="oilcosmetics.jpg" class="tag-img" alt="Haircare"/>
+        <button onclick="purchase('Haircare')">Haircare<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="perfume.jpg" class="tag-img" alt="Perfumes"/>
+        <button onclick="showPriceRangePage('Perfumes')">Perfumes<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+    </div>
+
+    <div class="button-centerbox"><button onclick="showPage('page-beauty')">⬅️ Back<div class="btn-glow"><div class="glow-inner"></div></div></button></div>
+  </div>
+
+  <!-- Furniture and Home Decor -->
+  <div id="page-furniture" class="page">
+    <h2><img src="furniture.jpg" class="main-heading-img" alt="">Furniture and Home Decor</h2>
+    <div class="button-centerbox">
+      <button class="sub-btn" onclick="showPage('page-furniture-list')">Start Now 🪑<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      <button onclick="showPage('page-category')">⬅️ Back<div class="btn-glow"><div class="glow-inner"></div></div></button>
+    </div>
+  </div>
+
+  <div id="page-furniture-list" class="page">
+    <h2><img src="furniture.jpg" class="main-heading-img" alt="">Furniture and Decor Tags</h2>
+    <div class="tags-list">
+      <div class="tag-btn-wrapper">
+        <img src="sofa.jpg" class="tag-img" alt="Sofas"/>
+        <button onclick="showPriceRangePage('Sofas')">Sofas<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="bed.jpg" class="tag-img" alt="Beds"/>
+        <button onclick="showPriceRangePage('Beds')">Beds<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="chair.jpg" class="tag-img" alt="Chairs"/>
+        <button onclick="showPriceRangePage('Chairs')">Chairs<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="curtain.jpg" class="tag-img" alt="Curtains"/>
+        <button onclick="showPriceRangePage('Curtains')">Curtains<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+      <div class="tag-btn-wrapper">
+        <img src="light.jpg" class="tag-img" alt="Lighting"/>
+        <button onclick="showPriceRangePage('Lighting')">Lighting<div class="btn-glow"><div class="glow-inner"></div></div></button>
+      </div>
+    </div>
+
+    <div class="button-centerbox"><button onclick="showPage('page-furniture')">⬅️ Back<div class="btn-glow"><div class="glow-inner"></div></div></button></div>
+  </div>
+
+  <!-- Dynamic Store Selection / Price Range Page -->
+  <div id="dynamic-store-select-page" class="page" aria-live="polite"></div>
+
+  <script>
+    /* -------------------------
+       Navigation & core data
+       ------------------------- */
+    let previousPage = 'page-main';
+    let currentProduct = null;
+
+    function showPage(id){
+      // gracefully hide all pages
+      document.querySelectorAll('.page').forEach(p => {
+        p.classList.remove('active');
+      });
+      // show target
+      const target = document.getElementById(id);
+      if(target){
+        target.classList.add('active');
+        if(id !== 'dynamic-store-select-page'){
+          previousPage = id;
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Original product -> stores mapping (kept intact & expanded)
+    const productStoreMap = {
+      Xiami: [
+        { label: "Flipkart", url: "https://www.flipkart.com/search?q=xiami+mobiles" },
+        { label: "Xiami Official Store", url: "https://www.mi.com/in/" }
+      ],
+      Oneplus: [
+        { label: "Amazon", url: "https://www.amazon.com/s?k=oneplus+mobiles" },
+        { label: "Oneplus Official Store", url: "https://www.oneplus.in/" }
+      ],
+      Vivo: [
+        { label: "Flipkart", url: "https://www.flipkart.com/search?q=vivo%20mobiles" },
+        { label: "Vivo Official Store", url: "https://www.vivo.com/in/" }
+      ],
+      Moto: [
+        { label: "Flipkart", url: "https://www.flipkart.com/search?q=moto%20mobiles" },
+        { label: "Moto Official Store", url: "https://www.motorola.in/" }
+      ],
+      Realme: [
+        { label: "Amazon", url: "https://www.amazon.com/s?k=realme+mobiles" },
+        { label: "Realme Official Store", url: "https://www.realme.com/in/" }
+      ],
+      Poco: [
+        { label: "Flipkart", url: "https://www.flipkart.com/search?q=poco%20mobiles" },
+        { label: "Poco Official Store", url: "https://www.po.co/in/" }
+      ],
+      Apple: [
+        { label: "Flipkart", url: "https://www.flipkart.com/search?q=apple%20mobiles" },
+        { label: "Apple Official Store", url: "https://www.apple.com/in/" }
+      ],
+      Oppo: [
+        { label: "Amazon", url: "https://www.amazon.in/s?k=oppo+mobiles" },
+        { label: "Oppo Official Store", url: "https://www.oppo.com/in/" }
+      ],
+      Shirt: [
+        { label: "Flipkart", url: "https://www.flipkart.com/search?q=shirt" },
+        { label: "Myntra", url: "https://www.myntra.com/search?q=shirt" }
+      ],
+      Pant: [
+        { label: "Flipkart", url: "https://www.flipkart.com/search?q=pant" },
+        { label: "Ajio", url: "https://www.ajio.com/search/?text=pant" }
+      ],
+      Shoe: [
+        { label: "Flipkart", url: "https://www.flipkart.com/search?q=shoe" },
+        { label: "Amazon", url: "https://www.amazon.in/s?k=shoe" }
+      ],
+      Accessories: [
+        { label: "Flipkart", url: "https://www.flipkart.com/search?q=accessories" },
+        { label: "Saar", url: "https://saarbeautylifestyle.com/search?q=accessories" }
+      ],
+      Mixers: [
+        { label: "Philips", url: "https://www.domesticappliances.philips.co.in/products/philips-500-watt-2-jar-mixer-grinder-hl7506-00" },
+        { label: "Prestige", url: "https://shop.ttkprestige.com/catalogsearch/result/?q=mixers" }
+      ],
+      Refrigerator: [
+        { label: "Reliance Digital", url: "https://www.reliancedigital.in/products?q=fridge" },
+        { label: "Flipkart", url: "https://www.flipkart.com/search?q=fridge" }
+      ],
+      "Washing Machine":[
+        { label: "Amazon", url: "https://www.amazon.in/s?k=washing+machine" },
+        { label: "Flipkart", url: "https://www.flipkart.com/search?q=washing+machine" }
+      ],
+      Fans:[
+        { label: "Amazon", url: "https://www.amazon.in/s?k=fans" },
+        { label: "Flipkart", url: "https://www.flipkart.com/search?q=fans" }
+      ],
+      Light:[
+        { label: "Flipkart", url: "https://www.flipkart.com/search?q=lights" },
+        { label: "Crompton", url: "https://www.crompton.co.in/pages/lights" }
+      ],
+      Cookware:[
+        { label: "Shopsy", url: "https://www.shopsy.in/search?q=cookware" }
+      ],
+      Cosmetics:[
+        { label: "Nykaa", url: "https://www.nykaa.com/search/result/?q=cosmetics" }
+      ],
+      Skincare:[
+        { label: "Nykaa", url: "https://www.nykaa.com/skin/c/8377" }
+      ],
+      Haircare:[
+        { label: "Purplle", url: "https://www.purplle.com/search?q=haircare" }
+      ],
+      Perfumes:[
+        { label: "Snapdeal", url: "https://www.snapdeal.com/search?keyword=perfume" }
+      ],
+      Sofas:[
+        { label: "Wakefit", url: "https://www.wakefit.co/search-result?q=sofa" }
+      ],
+      Beds:[
+        { label: "WoodenStreet", url: "https://www.woodenstreet.com/king-size-beds" }
+      ],
+      Chairs:[
+        { label: "WoodenStreet", url: "https://www.woodenstreet.com/lounge-chairs" }
+      ],
+      Curtains:[
+        { label: "Pepperfry", url: "https://www.pepperfry.com/search?q=curtains" }
+      ],
+      Lighting:[
+        { label: "The White Teak Company", url: "https://www.whiteteak.com/decorative-lights/new-arrival/" }
+      ]
+    };
+
+    /* Price range mapping -> Flipkart search URLs (as requested) */
+    const priceRangeMap = {
+      Shirt: [
+        { label: 'Budget ₹100 - ₹500', url: 'https://www.flipkart.com/search?q=shirt+100+to+500' },
+        { label: 'Mid Range ₹500 - ₹1000', url: 'https://www.flipkart.com/search?q=shirt+500+to+1000' },
+        { label: 'Luxary ₹1000 - ₹2000', url: 'https://www.flipkart.com/search?q=shirt+1000+to+2000' }
+      ],
+      Pant: [
+        { label: 'Budget ₹100 - ₹500', url: 'https://www.flipkart.com/search?q=pant+100+to+500' },
+        { label: 'Mid Range ₹500 - ₹1000', url: 'https://www.flipkart.com/search?q=pant+500+to+1000' },
+        { label: 'Luxary ₹1000 - ₹2000', url: 'https://www.flipkart.com/search?q=pant+1000+to+2000' }
+      ],
+      Shoe: [
+        { label: 'Normal ₹100 - ₹500', url: 'https://www.flipkart.com/search?q=shoe+100+to+500' },
+        { label: 'Budget ₹500 - ₹1000', url: 'https://www.flipkart.com/search?q=shoe+500+to+1000' },
+        { label: 'Mid Range ₹1000 - ₹2000', url: 'https://www.flipkart.com/search?q=shoe+1000+to+2000' },
+        { label: 'Luxary ₹2000 - ₹5000', url: 'https://www.flipkart.com/search?q=shoe+2000+to+5000' }
+      ],
+      Accessories: [
+        { label: 'Budget ₹100 - ₹500', url: 'https://www.flipkart.com/search?q=accessories+100+to+500' },
+        { label: 'Mid Range ₹500 - ₹1000', url: 'https://www.flipkart.com/search?q=accessories+500+to+1000' },
+        { label: 'Luxary ₹1000 - ₹2000', url: 'https://www.flipkart.com/search?q=accessories+1000+to+2000' }
+      ],
+      Mixers: [
+        { label: 'Budjet ₹5,000 - ₹10,000', url: 'https://www.flipkart.com/search?q=mixers+5000+to+10000' },
+        { label: 'Mid Range ₹10,000 - ₹20,000', url: 'https://www.flipkart.com/search?q=mixers+10000+to+20000' },
+        { label: 'Luxary ₹20,000+', url: 'https://www.flipkart.com/search?q=mixers+10000+to+20000' }
+      ],
+      Refrigerator: [
+        { label: 'Budget ₹10,000 - ₹12,000', url: 'https://www.flipkart.com/search?q=refrigerator+10000+to+12000' },
+        { label: 'Mid Range ₹20,000 - ₹50,000', url: 'https://www.flipkart.com/search?q=refrigerator+20000+to+50000' },
+        { label: 'Luxary ₹50,000 - ₹1,00,000', url: 'https://www.flipkart.com/search?q=refrigerator+50000+to+100000' }
+      ],
+      "Washing Machine": [
+        { label: 'Budget ₹15,000 - ₹30,000', url: 'https://www.flipkart.com/search?q=washing+machine+15000+to+30000' },
+        { label: 'Mid Range ₹30,000 - ₹50,000', url: 'https://www.flipkart.com/search?q=washing+machine+30000+to+50000' },
+        { label: 'luxary ₹50,000+', url: 'https://www.flipkart.com/search?q=washing+machine+50000+to+100000' }
+      ],
+      Fans: [
+        { label: 'Budjet ₹1,000 - ₹3,000', url: 'https://www.flipkart.com/search?q=fans+1000+to+3000' },
+        { label: 'Mid Range ₹3,000 - ₹12,000', url: 'https://www.flipkart.com/search?q=fans+3000+to+12000' },
+        { label: 'Luxary ₹12,000 - ₹22,000', url: 'https://www.flipkart.com/search?q=fans+12000+to+22000' }
+      ],
+      Light: [
+        { label: 'Normal ₹200 - ₹1,000', url: 'https://www.flipkart.com/search?q=lights+200+to+1000' },
+        { label: 'Classic ₹1,000+', url: 'https://www.flipkart.com/search?q=lights+1000+to+10000' }
+      ],
+      Perfumes: [
+        { label: 'Budget ₹300 - ₹1,500', url: 'https://www.flipkart.com/search?q=perfume+300+to+1500' },
+        { label: 'Mid Range ₹2,000 - ₹10,000', url: 'https://www.flipkart.com/search?q=perfume+2000+to+10000' },
+        { label: 'Luxury ₹10,000+', url: 'https://www.flipkart.com/search?q=perfume+10000+to+30000' }
+      ],
+      Sofas: [
+        { label: 'Budget ₹10,000 - ₹20,000', url: 'https://www.flipkart.com/search?q=sofa+10000+to+20000' },
+        { label: 'Mid Range ₹20,000 - ₹70,000', url: 'https://www.flipkart.com/search?q=sofa+20000+to+70000' },
+        { label: 'Luxury ₹70,000+', url: 'https://www.flipkart.com/search?q=sofa+70000+to+100000' }
+      ],
+      Beds: [
+        { label: 'Budget ₹10,000 - ₹15,000', url: 'https://www.flipkart.com/search?q=beds+10000+to+15000' },
+        { label: 'Mid Range ₹25,000 - ₹50,000', url: 'https://www.flipkart.com/search?q=beds+25000+to+50000' },
+        { label: 'Luxury ₹50,000 - ₹1,00,000', url: 'https://www.flipkart.com/search?q=beds+50000+to+100000' }
+      ],
+      Chairs: [
+        { label: 'Budget ₹1,500 - ₹5,000', url: 'https://www.flipkart.com/search?q=chairs+1500+to+5000' },
+        { label: 'Mid Range ₹5,000 - ₹12,000', url: 'https://www.flipkart.com/search?q=chairs+5000+to+12000' },
+        { label: 'Luxury ₹12,000+', url: 'https://www.flipkart.com/search?q=chairs+12000+to+25000' }
+      ],
+      Curtains: [
+        { label: 'Budget ₹300 - ₹1,500', url: 'https://www.flipkart.com/search?q=curtains+300+to+1500' },
+        { label: 'Mid Range ₹1,500 - ₹3,500', url: 'https://www.flipkart.com/search?q=curtains+1500+to+3500' },
+        { label: 'Luxury ₹3,500+', url: 'https://www.flipkart.com/search?q=curtains+3500+to+6000' }
+      ],
+      Lighting: [
+        { label: 'Budget ₹500 - ₹1,500', url: 'https://www.flipkart.com/search?q=lighting+500+to+1500' },
+        { label: 'Mid Range ₹1,500 - ₹4,000', url: 'https://www.flipkart.com/search?q=lighting+1500+to+4000' },
+        { label: 'Luxury ₹4,000+', url: 'https://www.flipkart.com/search?q=lighting+4000+to+10000' }
+      ]
+    };
+
+    /*
+      New mapping: for each product + price-range we provide a list
+      of store choices (these are the "top / middle / bottom" choices the user asked for).
+      Each entry will be rendered with a custom sentence based on product + price range.
+    */
+    const rangeStoreOptions = {
+      Shirt: {
+        'Budget ₹100 - ₹500': [
+          { label: 'Myntra', url: 'https://www.myntra.com/less-than-500-all-branded-shirts?rawQuery=less%20than%20500%20all%20branded%20shirts' },
+          { label: 'Meesho', url: 'https://www.meesho.com/search?q=all%20braded%20shirts%20under%20500&searchType=manual&searchIdentifier=text_search' },
+          { label: 'Snapdeal', url: 'https://www.snapdeal.com/products/men-apparel-shirts?sort=plrty&q=Price%3A179%2C531%7C' }
+        ],
+        'Mid Range ₹500 - ₹1000': [
+          { label: 'Ajio', url: 'https://www.ajio.com/search/?text=all%20branded%20shirts%20for%20men%20under%201000' },
+          { label: 'Tatacliq', url: 'https://www.tatacliq.com/search/?q=shirts%3Arelevance%3AinStockFlag%3Atrue%3Acategory%3AMSH11%3Aprice%3A%25E2%2582%25B9501-%25E2%2582%25B91%252C000' },
+          { label: 'Snapdeal', url: 'https://www.snapdeal.com/search?keyword=shirts%20under%201000&santizedKeyword=&catId=&categoryId=0&suggested=false&vertical=p&noOfResults=20&searchState=&clickSrc=go_header&lastKeyword=&prodCatId=&changeBackToAll=false&foundInAll=false&categoryIdSearched=&cityPageUrl=&categoryUrl=&url=&utmContent=&dealDetail=&sort=rlvncy' }
+        ],
+        'Luxary ₹1000 - ₹2000': [
+          { label: 'Tatacliq', url: 'https://www.tatacliq.com/search/?searchCategory=all&text=shirts%20under%202000' },
+          { label: 'Ajio', url: 'https://www.ajio.com/search/?query=%3Aprce-desc&text=shirts%20under%202000&classifier=intent&gridColumns=3&segmentIds=' },
+          { label: 'Myntra', url: 'https://www.meesho.com/search?q=all%20braded%20shirts%20under%202000&searchType=manual&searchIdentifier=text_search&Sort[sort_by]=price&Sort[sort_order]=desc&Price[0][id]=632&Price[0][label]=%E2%82%B9%20800%20%26%20Above&Price[0][payload]=eyJmaWVsZCI6ImxhYmVscy4xNSIsIm9wIjoiaW4iLCJ2YWx1ZSI6IjYzMiJ9' },
+          { label: 'Nykaa', url: 'https://www.nykaa.com/search/result/?q=men%20shirts%20under%202000&root=search&searchType=Manual&sourcepage=Search+Page&sort=price_desc&price_range_filter=1000-1999' }
+        ]
+      },
+      Pant: {
+        'Budget ₹100 - ₹500': [
+          { label: 'Limeroad', url: 'https://www.limeroad.com/search/pant%20under%20500' },
+          { label: 'Snapdeal', url: 'https://www.snapdeal.com/search?keyword=pant%20under%20500&santizedKeyword=shirts+under+1000&catId=0&categoryId=0&suggested=false&vertical=p&noOfResults=20&searchState=&clickSrc=go_header&lastKeyword=&prodCatId=&changeBackToAll=false&foundInAll=false&categoryIdSearched=&cityPageUrl=&categoryUrl=&url=&utmContent=&dealDetail=&sort=rlvncy' },
+          { label: 'meesha', url: 'https://www.meesho.com/search?q=pant%20under%20500%20mens&searchType=manual&searchIdentifier=text_search' }
+        ],
+        'Mid Range ₹500 - ₹1000': [
+          { label: 'Myntra', url: 'https://www.myntra.com/pant-under-1000?rawQuery=pant%20under%201000' },
+          { label: 'Ajio', url: 'https://www.ajio.com/search/?query=%3Aprce-desc&text=pant%20under%201000&classifier=intent&gridColumns=3&segmentIds=' },
+          { label: 'Tatacliq', url: 'https://www.tatacliq.com/search/?searchCategory=all&text=pants%20under%201000' }
+        ],
+        'Luxary ₹1000 - ₹2000': [
+          { label: 'Ajio', url: 'https://www.ajio.com/search/?query=%3Aprce-desc&text=pants%20under%202000&classifier=intent&gridColumns=3' },
+          { label: 'Tatacliq', url: 'https://www.tatacliq.com/search/?q=pants%20under%202000:price-desc:inStockFlag:true:category:MSH11' },
+          { label: 'Nykaa', url: 'https://www.nykaafashion.com/catalogsearch/result/?q=pants+under+2000&searchType=ManualSearch&internalSearchTerm=pants+under+2000&f=gender_filter%3D5197_' },
+          { label: 'Myntra', url: 'https://www.myntra.com/pants-under-2000?sort=price_desc&f=Gender%3Amen%2Cmen%20women&rawQuery=pants%20under%202000' }
+        ]
+      },
+      Shoe: {
+        'Normal ₹100 - ₹500': [
+          { label: 'Myntra', url: 'https://www.myntra.com/shoe-under-500?f=Categories%3ACasual%20Shoes%3A%3AGender%3Amen%2Cmen%20women&rawQuery=shoe%20under%20500' },
+          { label: 'Snapdeal', url: 'https://www.snapdeal.com/search?clickSrc=top_searches&keyword=campus%20shoe%20men%20under%20500&categoryId=0&vertical=p&noOfResults=20&SRPID=topsearch&sort=rlvncy' },
+    
+        ],
+        'Budget ₹500 - ₹1000': [
+          { label: 'Myntra', url: 'https://www.nykaafashion.com/catalogsearch/result/?q=shoe+under+1000&searchType=ManualSearch&internalSearchTerm=shoe+under+1000&typedSearchTerm=shoe+under+1000&f=sort%3Dhigh-to-low' },
+          { label: 'Ajio', url: 'https://www.ajio.com/search/?query=%3Aprce-desc&text=shoe%20under%201000&classifier=intent&gridColumns=3&segmentIds=' },
+          { label: 'Tatacliq', url: 'https://www.tatacliq.com/search/?q=shoe%20under%201000:price-desc:inStockFlag:true' },
+          { label: 'Snapdeal', url: 'https://www.snapdeal.com/search?keyword=campus%20shoe%20men%20under%201000&santizedKeyword=campus+shoe+men+under+500&catId=0&categoryId=0&suggested=false&vertical=p&noOfResults=20&searchState=&clickSrc=go_header&lastKeyword=&prodCatId=&changeBackToAll=false&foundInAll=false&categoryIdSearched=&cityPageUrl=&categoryUrl=&url=&utmContent=&dealDetail=&sort=phtl&q=Price%3A130%2C1002%7C' }
+        ],
+        'Mid Range ₹1000 - ₹2000': [
+          { label: 'Myntra', url: 'https://www.myntra.com/shoe-under-2000?sort=price_desc&rawQuery=shoe%20under%202000' },
+          { label: 'Ajio', url: 'https://www.ajio.com/search/?query=%3Aprce-desc&text=shoe%20under%202000&classifier=intent&gridColumns=3&segmentIds=' },
+          { label: 'Tatacliq', url: 'https://www.tatacliq.com/search/?q=shoe%20under%202000:price-desc:inStockFlag:true' },
+          { label: 'Snapdeal', url: 'https://www.snapdeal.com/search?keyword=campus%20shoe%20men%20under%202000&santizedKeyword=campus+shoe+men+under+1000&catId=0&categoryId=0&suggested=false&vertical=p&noOfResults=20&searchState=&clickSrc=go_header&lastKeyword=&prodCatId=&changeBackToAll=false&foundInAll=false&categoryIdSearched=&cityPageUrl=&categoryUrl=&url=&utmContent=&dealDetail=&sort=phtl&q=Price%3A130%2C1973%7C' }
+        ],
+        'Luxary ₹2000 - ₹5000': [
+          { label: 'Tatacliq', url: 'https://www.tatacliq.com/search/?q=shoe%20under%205000:price-desc:inStockFlag:true' },
+          { label: 'Nykaa', url: 'https://www.nykaafashion.com/catalogsearch/result/?q=shoe+under+5000&searchType=ManualSearch&internalSearchTerm=shoe+under+5000&typedSearchTerm=shoe+under+5000&f=sort%3Dhigh-to-low '},
+          { label: 'Myntra', url: 'https://www.myntra.com/shoe-under-5000?sort=price_desc&rawQuery=shoe%20under%205000' },
+          { label: 'Ajio', url: 'https://www.ajio.com/search/?query=%3Aprce-desc&text=shoe%20under%205000&classifier=intent&gridColumns=3' }
+        ]
+      },
+      Accessories: {
+        'Budget ₹100 - ₹500': [
+          { label: 'heybae', url: 'https://heybae.co.in/collections/under-500' },
+          { label: 'nithilah', url: 'https://nithilah.com/collections/under-499' },
+          { label: 'vivazs', url: 'https://vivazs.com/collections/under-500?_pos=1&_psq=under+500&_ss=e&_v=1.0' },
+          { label: 'tatacliq', url: 'https://www.tatacliq.com/search/?q=accessories%20under%20500:relevance:inStockFlag:true:category:MSH16' }
+        ],
+        'Mid Range ₹1000 - ₹2000': [
+          { label: 'vivazs', url: 'https://vivazs.com/collections/under-2000?_pos=2&_psq=UN&_ss=e&_v=1.0' },
+          { label: 'OMIP fashion', url: 'https://omidfashion.com/collections/minimal-must-haves' },
+          { label: 'Taramimi', url: 'https://taramini.com/collections/under-2500' },
+          { label: 'zevarly', url: 'https://zevarly.com/collections/all' },
+           { label: 'FAD India', url: 'https://fadindia.in/collections/neckpieces?filter.v.price.gte=0&filter.v.price.lte=1000&sort_by=price-descending' }
+        ],
+        'Luxary ₹2000 - ₹5000': [
+          { label: 'Tatacliq', url: 'https://www.tatacliq.com/search/?q=accessories%20fabindia:relevance:inStockFlag:true:category:MSH16' },
+          { label: 'Mismerime India', url: 'https://mesmerizeindia.com/pages/mens-collection' },
+          { label: 'kaithra', url: 'https://www.kaithra.com/collections/antique-necklace' },
+          
+        ]
+      },
+       Mixers: {
+        'Budjet ₹5,000 - ₹10,000':[
+       { label: 'Moglix', url: 'https://www.moglix.com/search?controller=search&orderby=position&orderway=desc&search_query=mixer%20under%2010000&submit_search=Search&lsource=sinput&orderBy=price&orderWay=desc' },
+      { label: 'Bajajmall', url: 'https://www.bajajfinserv.in/bmall/food-processors?emi=1001-3000&off_percentage=10' },
+      { label: 'Sujatha appliances', url: 'https://sujataappliances.com/kitchen-appliances/mixer-grinders/' }
+       ],
+        'Mid Range ₹10,000 - ₹20,000':[
+      { label: 'Preethi', url: 'https://www.shop.preethi.in/collections/5-jars '},
+      { label: 'sujatha appliances', url: ' https://sujataappliances.com/product/dynamix-the-smart-choice-for-grinding/' },
+      { label: 'moglix', url: 'https://www.moglix.com/search?controller=search&orderby=position&orderway=desc&search_query=mixer&submit_search=Search&lsource=sinput#price-10001%20-%20*' },
+      { label: 'Big basket', url: 'https://www.bigbasket.com/ps/?q=mixer&nc=as' }
+     ],
+        'Luxary ₹20,000+':[
+      { label: 'Reliance Digital', url: 'https://www.reliancedigital.in/products?q=mixer%20grinder&page_no=1&page_size=12&page_type=number&sort_on=price_dsc' },
+      { label: 'Prestige', url: 'https://shop.ttkprestige.com/catalogsearch/result/index/?product_sub_type_2=112308&price=9000.00-10000.00&product_list_order=price&q=mixers+17000' },
+      { label: 'Amazon', url: 'https://www.amazon.in/s?k=mixer+grinder+20000&s=price-desc-rank&crid=1PDD3UIISCBFR&qid=1764311220&sprefix=mixer+grinder+20000%2Caps%2C422&ref=sr_st_price-desc-rank&ds=v1%3AeoMPXWXHiW7uSNmXbCiCEIL5a5fmWr6A2aVCKVdhU3k' }
+       ]      // other products remain as before (if needed)
+       },
+       Refrigerator: {
+        'Budget ₹10,000 - ₹12,000':[
+        { label: 'Smartprix', url: 'https://www.smartprix.com/refrigerators/price-below_12000' },
+        { label: 'Pricedheko', url: 'https://www.pricedekho.com/refrigerators/rs-10000-to-rs-12000+refrigerators-price-list.html' },
+        { label: 'Lotus Electronics', url: 'https://www.lotuselectronics.com/products/refrigerators?queryStr=price=[100,12000]'},
+        { label: 'moglix', url: 'https://www.moglix.com/search?controller=search&orderby=position&orderway=desc&search_query=fridge%20under%2012000&submit_search=Search&lsource=sinput' }
+       ],
+       
+        'Mid Range ₹20,000 - ₹50,000':[
+        { label: 'Whirlpool', url: 'https://www.whirlpoolindia.com/refrigerators/double-door-refrigerators?initialMap=c,c&initialQuery=refrigerators/double-door-refrigerators&map=category-1,category-2&order=OrderByPriceDESC&priceRange=21980%20TO%2050193&sc=1' },
+        { label: 'Voltas', url: 'https://www.voltas.com/search?q=fridge&options%5Bprefix%5D=last&sort_by=price-descending' },
+        { label: 'Samsung', url: 'https://www.samsung.com/in/refrigerators/all-refrigerators/?rs-40000rs-50000' }
+       ],
+       'Luxary ₹50,000 - ₹1,00,000':[
+        { label: 'samsung', url: 'https://www.samsung.com/in/refrigerators/all-refrigerators/?rs-40000rs-50000' },
+        { label: 'Reliance Degital', url: 'https://www.reliancedigital.in/products?q=fridge&category=direct-cool&search_term=fridge&internal_source=search_prompt&page_no=1&page_size=12&page_type=number&min_price_effective=%5B0,INR%20TO%2080690,INR%5D&sort_on=price_dsc' },
+        { label: 'Lotus Electronics', url: 'https://www.lotuselectronics.com/products/refrigerators?queryStr=price%3D%5B50000,100000%5D' },
+        { label: 'Bajajmall', url: 'https://www.bajajfinserv.in/bmall/refrigerators/triple-door-refrigerators' }
+       ]
+        
+      },
+    "Washing Machine": {
+      'Budget ₹15,000 - ₹30,000':[
+        { label: 'My smartprice', url: 'https://www.mysmartprice.com/msp/search/search.php?search_type=full&typed_term=&s=washing%20machine%20#s=washing%20machine&startinr=10500&endinr=29700' },
+        { label: 'Reliance Digital', url: 'https://www.reliancedigital.in/products?q=washingma&category=washing-machines&search_term=washingma&internal_source=search_prompt&page_no=1&page_size=12&page_type=number&min_price_effective=%5B0,INR%20TO%2030666,INR%5D' },
+        { label: 'Bajajmall', url: 'https://www.bajajfinserv.in/bmall/search?q=washing%20machine' }
+        ],
+        'Mid Range ₹30,000 - ₹50,000':[
+        { label: 'Smartprix', url: 'https://www.smartprix.com/washing_machines/price-25000_to_50000?sort=price&asc=0' },
+        { label: 'Pricedheko', url: 'https://www.pricedekho.com/washing-machines-dryers/ifb+washing-machines-dryers-price-list.html' },
+        { label: 'Reliance Digital', url: 'https://www.reliancedigital.in/products?q=washingma&category=washing-machines&search_term=washingma&internal_source=search_prompt&page_no=1&page_size=12&page_type=number&min_price_effective=%5B31999,INR%20TO%2049332,INR%5D' }
+        ],
+        'luxary ₹50,000+':[
+        { label: 'Smartprix', url: 'https://www.smartprix.com/washing_machines/price-above_25000?sort=price&asc=0' },
+        { label: 'Reliance digital', url: 'https://www.reliancedigital.in/products?q=washingma&category=washing-machines&search_term=washingma&internal_source=search_prompt&page_no=1&page_size=12&page_type=number&min_price_effective=%5B31999,INR%20TO%20299990,INR%5D&sort_on=price_dsc' },
+        { label: 'Pricedheko', url: 'https://www.pricedekho.com/washing-machines-dryers/expensive-price-50000-82000+washing-machines-dryers-price-list.html' }
+        ]
+    },
+      Fans: {
+        'Budjet ₹1,000 - ₹3,000':[
+        { label: 'Smartprix', url: 'https://www.smartprix.com/fans/price-1000_to_3000' },
+        { label: 'Moglix', url: 'https://www.moglix.com/alp/ceiling-fans-under-3000' },
+        { label: 'lotus Electrical', url: 'https://www.lotuselectronics.com/search?q=celling%20fans&price=[1000,3000]' }
+        ],
+        'Mid Range ₹3,000 - ₹12,000':[
+        { label: 'Lotus Electronics', url: '' },
+        { label: 'Bajajmall', url: 'https://www.bajajfinserv.in/bmall/fans' },
+        { label: 'Moglix', url: 'https://www.moglix.com/brands/havells/appliances-and-utilities/fans/ceiling-fans/211531100' },
+        { label: 'Orient electric', url: 'https://orientelectric.com/collections/ceiling-fans?uff_t32zds_price=%3A6000%2010000%20%7B0%7D%20-%20%20%7B1%7D' }
+        ],
+        'Luxary ₹12,000 - ₹22,000':[
+        { label: 'Lotus Electronics', url: 'https://www.lotuselectronics.com/products/fans/ceiling-fan' },
+        { label: 'Bajajmall', url: 'https://www.bajajfinserv.in/bmall/fans?emi=830-3000&product_list_dir=emi&product_list_order=desc' },
+        { label: 'Poorvika', url: 'https://www.poorvika.com/fans/s?slug=fans&q=fans&special_price=special_price%3A%3D%5B15000..29999%5D' }
+        ]
+  },
+  Light: {
+    'Budget ₹200 - ₹1,000':[
+      { label: 'Meesho', url: 'https://www.meesho.com/search?q=tube%20lights%20under%201000&searchType=manual&searchIdentifier=text_search&Sort[sort_by]=price&Sort[sort_order]=desc' },
+      { label: 'Snapdeal', url: 'https://www.snapdeal.com/search?keyword=ceiling%20lights%20under%201000&santizedKeyword=tube+lights+under+1000&catId=0&categoryId=0&suggested=false&vertical=p&noOfResults=20&searchState=&clickSrc=go_header&lastKeyword=&prodCatId=&changeBackToAll=false&foundInAll=false&categoryIdSearched=&cityPageUrl=&categoryUrl=&url=&utmContent=&dealDetail=&sort=rlvncy' },
+      { label: 'ShopClues', url: 'https://www.shopclues.com/search?q=%20celling%20tube%20lights%20under%201000&sc_z=&z=0&count=0&user_id=&user_segment=default' },
+      { label: 'Shopsy', url: 'https://www.shopsy.in/search?q=ceiling+lights&as=on&as-show=on&sort=price_desc' }
+
+      ],
+      'Mid Range ₹1000+':[
+      { label: 'Crompton', url: 'https://www.crompton.co.in/collections/battens-tube-lights?sort_by=price-descending&filter.v.price.gte=500&filter.v.price.lte=1000' },
+      { label: 'Philips', url: 'https://www.philips-hue.com/en-in/products/all-products' },
+      { label: 'Havells', url: 'https://havells.com/catalogsearch/result/?q=lights+for+home' }
+      ],
+      'Luxury ₹4,000+':[
+      { label: 'Crompton', url: 'https://www.crompton.co.in/collections/outdoor-lights' },
+      { label: 'The White Teak Company', url: 'https://www.whiteteak.com/catalogsearch/result/?q=tube+light#' },
+      { label: 'Philips', url: 'https://www.philips-hue.com/en-in/products/all-products?filters=WALLLIGHTS_SU&page=1' }
+      ]
+},
+Perfumes: {
+  'Budget ₹300 - ₹1,500':[  
+    { label: 'Nykaa', url: 'https://www.nykaa.com/search/result/?q=perfume%20under%201500&root=search&searchType=Manual&sourcepage=home&sort=price_desc' },
+    { label: 'Purplee', url: 'https://www.purplle.com/search?q=perfumes%2520under%25201500&sort_by=hp' },
+    { label: 'Snapdeal', url: 'https://www.snapdeal.com/search?keyword=perfume%20under%201500&santizedKeyword=perfume&catId=&categoryId=0&suggested=false&vertical=p&noOfResults=20&searchState=&clickSrc=go_header&lastKeyword=&prodCatId=&changeBackToAll=false&foundInAll=false&categoryIdSearched=&cityPageUrl=&categoryUrl=&url=&utmContent=&dealDetail=&sort=phtl' },
+    { label: 'FNP (Ferns N Petals online store)', url: 'https://www.fnp.com/search?FNP_CURRENT_CATALOG_ID=india&qs=perfume%20under%201500' }
+    ],  
+    'Mid Range ₹2,000 - ₹10,000':[  
+    { label: 'Nykaa', url: 'https://www.nykaa.com/search/result/?q=perfume%20under%2010000&root=search&searchType=Manual&sourcepage=Search+Page&sort=price_desc' },
+    
+    { label: 'Perfumex', url: 'https://perfumex.in/search?q=perfume+under+10000&type=product' },
+
+    ],
+    'Luxury ₹10,000+':[  
+    { label: 'Perfumex', url: 'https://perfumex.in/search?q=petfume+under+20000&type=product' },
+    { label: 'Perfume Palace', url: 'https://perfumepalace.in/collections/for-men?sort_by=price-descending' },
+   { label: 'The Perfume Shop', url: 'https://www.theperfumeshop.com/' }
+    ]
+    },
+      Sofas: {
+        'Budget ₹10,000 - ₹20,000':[
+        { label: 'Wooden street', url: 'https://www.woodenstreet.com/sofa-set-under-20000?pricerange=7999-20370&filter=&brand=&order=DESC&sort=p.price_high' },
+        { label: 'Wakefit', url: 'https://www.wakefit.co/search-result?q=sofas%20under%2020000&sellingPrice=498%2020698&sortBy=highToLow' },
+        { label: 'Duroflex', url: 'https://www.duroflexworld.com/search?q=sofas+under+20000&sort=Price:+High+to+Low' },
+        ],
+        'Mid Range ₹20,000 - ₹70,000':[
+        { label: 'Woodenstreet', url: 'https://www.woodenstreet.com/sofa-set-under-20000?pricerange=20370-70893&filter=&brand=&order=DESC&sort=p.price_high' },
+        { label: 'Wakefit', url: 'https://www.wakefit.co/search-result?q=sofas%20under%2020000&sortBy=highToLow&sellingPrice=15398%2070298' },
+        { label: 'Pepperfry', url: 'https://www.pepperfry.com/site_product/search?q=sofas%20under%2070000&requestPlatform=web&sort_field=price&sort_by=desc&as=0&src=sofas%20under%2070000&autoSuggest=1&sort_name=Highest%20Priced%20First&page=1&price=15000-70000' },
+        { label: 'Urbanladder', url: 'https://www.urbanladder.com/products?q=sofas+under+70000&sortOn=price_dsc' }
+        ],
+        'Luxury ₹70,000+':[
+        { label: 'Pepperfry', url: 'https://www.pepperfry.com/site_product/search?q=sofas%20under%2070000&requestPlatform=web&sort_field=price&sort_by=desc&as=0&src=sofas%20under%2070000&autoSuggest=1&sort_name=Highest%20Priced%20First&page=1&price=70000-200000' },
+        { label: 'Wooden Bazar', url: 'https://www.urbanwood.in/sofas?sort=p.price&order=DESC' },
+        { label: 'Chairs & Company', url: 'https://chairsandcompany.in/products/mia-leather-sofa' },
+        { label: 'Furnishka', url: 'https://www.furnishka.com/search?q=sofa+under+200000&options%5Bprefix%5D=last'},
+        ]
+      },
+      Beds: {
+        'Budget ₹10,000 - ₹15,000':[
+        { label: 'Wakefit', url: 'https://www.wakefit.co/search-result?q=beds%20under%2015000&sellingPrice=498%2014398' },
+        { label: 'Ouchcart', url: 'https://ouchcart.com/search?sort_by=price-descending&q=beds+under+15000&type=product&options%5Bprefix%5D=last&options%5Bunavailable_products%5D=show&filter.v.price.gte=&filter.v.price.lte=15106' },
+        { label: 'Pepperfry', url: 'https://www.pepperfry.com/site_product/search?q=beds%20under%2015000&requestPlatform=web&sort_field=sorting_score&sort_by=desc&as=0&src=beds%20under%2015000&autoSuggest=1&price=200-15000&page=1'},
+        ],
+        'Mid Range ₹25,000 - ₹50,000':[
+        { label: 'Pepperfry', url: 'https://www.pepperfry.com/site_product/search?q=beds%20under%2050000&requestPlatform=web&sort_field=price&sort_by=desc&as=0&src=beds%20under%2050000&autoSuggest=1&price=200-50000&page=1&sort_name=Highest%20Priced%20First' },
+        { label: 'Urbanladder', url: 'https://www.urbanladder.com/products?q=beds+under+50000&sortOn=price_dsc' },
+        { label: 'Wakefit', url: 'https://www.wakefit.co/search-result?q=beds%20under%2015000&sellingPrice=1898%2050898&sortBy=highToLow' },
+        { label: 'UrbanWood', url: 'https://www.urbanwood.in/beds?sort=p.price&order=DESC&pr=15000,50000' },
+
+        ],
+        'Luxury ₹50,000 - ₹1,00,000':[
+        { label: 'Pepperfry', url: 'https://www.pepperfry.com/site_product/search?q=beds%20under%20100000&requestPlatform=web&sort_field=price&sort_by=desc&as=0&src=beds%20under%20100000&autoSuggest=1&sort_name=Highest%20Priced%20First&page=1&price=200-100000' },
+        { label: 'Urban Ladder', url: 'https://www.urbanladder.com/products?q=beds+under+100000&sortOn=price_dsc' },
+        { label: 'WoodenStreet', url: 'https://www.woodenstreet.com/search?search=beds%20under%20100000' },
+   
+        ]
+      },
+      Chairs: {
+        'Budget ₹1,500 - ₹5,000':[
+        { label: 'Amazon', url: 'https://www.amazon.com/s?k=chairs+under+5000&s=price-desc-rank&crid=PVCQYYESF3D6&qid=1764329858&sprefix=chairs+under+5000%2Caps%2C567&ref=sr_st_price-desc-rank&ds=v1%3An%2FTYNAwllf31woqXdi8GLCN3WEVt0GAKDmxEpi3mkv4' },
+        { label: 'Moglix', url: 'https://www.moglix.com/alp/high-back-office-chairs#price-2501%20-%205000' },
+        { label: 'Smilesellers', url: 'https://smilesellers.com/collections/furnitures?filter.v.price.gte=&filter.v.price.lte=3000&sort_by=price-descending&pgview=grid&view=collection' },
+        { label: 'Pepperfry', url: 'https://www.pepperfry.com/site_product/search?q=chirs%20under%205000&requestPlatform=web&sort_field=price&sort_by=desc&as=0&src=chirs%20under%205000&autoSuggest=1&price=100-5000&page=1&sort_name=Highest%20Priced%20First' }
+        ],
+        'Mid Range ₹5,000 - ₹12,000':[
+        { label: 'Pepperfry', url: 'https://www.pepperfry.com/site_product/search?q=chirs%20under%205000&requestPlatform=web&sort_field=price&sort_by=desc&as=0&src=chirs%20under%205000&autoSuggest=1&price=5000-15000&page=1&sort_name=Highest%20Priced%20First' },
+        { label: 'Urban Ladder', url: 'https://www.woodenstreet.com/search?search=chiars%20under%2015000' },
+        { label: 'WoodenStreet', url: 'https://www.woodenstreet.com/office-chairs-under-15000?pricerange=3989-11888&filter=&brand=&order=DESC&sort=p.price_high' },
+        { label: 'UrbanCart', url: 'https://urbancart.in/collections/chairs?sort_by=price-descending&filter.v.price.gte=&filter.v.price.lte=12000' }
+        ],
+        'Luxury ₹12,000+':[
+        { label: 'Pepperfry', url: 'https://www.pepperfry.com/site_product/search?q=chirs%20under%2020000&requestPlatform=web&sort_field=price&sort_by=desc&as=0&src=chirs%20under%2020000&autoSuggest=1&sort_name=Highest%20Priced%20First&page=1&price=100-100000' },
+        { label: 'Urban Ladder', url: 'https://www.urbanladder.com/products?q=chairs&sortOn=price_dsc' },
+        { label: 'WoodenStreet', url: 'https://www.woodenstreet.com/lounge-chairs?pricerange=9899-29999&filter=&brand=&order=DESC&sort=p.price_high' },
+        { label: 'UrbanCart', url: 'https://urbancart.in/collections/chairs?sort_by=price-descending&filter.v.price.gte=&filter.v.price.lte=50521' }
+        ]
+  },
+  Curtains: {
+    'Budget ₹300 - ₹1,500':[
+      { label: 'Snapdeal', url: 'https://www.snapdeal.com/search?keyword=curtains%20under%201500&santizedKeyword=perfume+under+1500&catId=0&categoryId=0&suggested=false&vertical=p&noOfResults=20&searchState=&clickSrc=go_header&lastKeyword=&prodCatId=&changeBackToAll=false&foundInAll=false&categoryIdSearched=&cityPageUrl=&categoryUrl=&url=&utmContent=&dealDetail=&sort=phtl' },
+      { label: 'Shopsy', url: 'https://www.shopsy.in/search?q=curtains+under+1500&p[]=facets.price_range.from=Min&p[]=facets.price_range.to=1500&sort=price_desc' },
+      { label: 'Pepperfry', url: 'https://www.pepperfry.com/site_product/search?q=curtains%20under%201500&requestPlatform=web&sort_field=price&sort_by=desc&as=0&src=curtains%20under%201500&autoSuggest=1&price=0-1500&page=1&sort_name=Highest%20Priced%20First' }
+      ],
+      'Mid Range ₹1,500 - ₹3,500':[
+      { label: 'Shopsy', url: 'https://www.shopsy.in/search?q=curtains+under+3500&p[]=facets.price_range.from=Min&p[]=facets.price_range.to=Max&sort=price_desc' },
+      { label: 'Casacraft by Pepperfry', url: 'https://www.pepperfry.com/site_product/search?q=curtains%20under%201500&requestPlatform=web&sort_field=price&sort_by=desc&as=0&src=curtains%20under%201500&autoSuggest=1&price=0-3500&page=1&sort_name=Highest%20Priced%20First' },
+            { label: 'Flipkart', url: 'https://www.flipkart.com/search?q=curtains+under+3500&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off&sort=price_desc' }
+
+      ],
+      'Luxury ₹3,500+':[
+      { label: 'Pepperfry', url: 'https://www.pepperfry.com/site_product/search?q=curtains%20under%201500&requestPlatform=web&sort_field=price&sort_by=desc&as=0&src=curtains%20under%201500&autoSuggest=1&price=0-6000&page=1&sort_name=Highest%20Priced%20First' },
+      { label: 'WoodenStreet', url: 'https://www.woodenstreet.com/search?search=curtains' },
+      { label: 'Urban Space', url: 'https://www.urbanspacestore.in/search?type=product&options%5Bprefix%5D=none&q=curtains+&options%5Bprefix%5D=last' },
+      ]
+},
+      Lighting: {
+        'Budget ₹500 - ₹1,500':[
+        { label: 'Shopsy', url: 'https://www.shopsy.in/search?q=home+decor+lights&p[]=facets.price_range.from=Min&p[]=facets.price_range.to=Max&p[]=facets.price_range.from=Min&p[]=facets.price_range.to=1500&p[]=facets.price_range.from=Min&p[]=facets.price_range.to=5000&p[]=facets.price_range.from=Min&p[]=facets.price_range.to=1500&sort=price_asc' },
+        { label: 'Snapdeal', url: 'https://www.snapdeal.com/search?keyword=home%20decor%20lights&santizedKeyword=curtain+window&catId=0&categoryId=0&suggested=false&vertical=p&noOfResults=20&searchState=&clickSrc=go_header&lastKeyword=&prodCatId=&changeBackToAll=false&foundInAll=false&categoryIdSearched=&cityPageUrl=&categoryUrl=&url=&utmContent=&dealDetail=&sort=phtl&q=Price%3A90%2C2016%7C' },
+        { label: 'Chronos Lights', url: 'https://chronoslights.com/search?sort_by=price-descending&q=home%20decor%20lights&filter.v.price.lte=1500' },
+        
+        ],
+        'Mid Range ₹1,500 - ₹4,000':[
+        { label: 'Chronos Lights', url: 'https://chronoslights.com/search?q=home%20decor%20lights&filter.v.price.lte=4000&sort_by=price-descending' },
+        { label: 'Pepperfry', url: 'https://www.pepperfry.com/site_product/search?q=home%20decor%20lights&requestPlatform=web&sort_field=price&sort_by=desc&as=0&src=home%20decor%20lights&autoSuggest=1&price=0-4000&page=1&sort_name=Highest%20Priced%20First' },
+        { label: 'Amazon', url: 'https://www.amazon.com/s?k=home+decor+lights&crid=DIJGKLQKH58G&qid=1764332699&rnid=386465011&sprefix=home+decor+lights%2Caps%2C1460&ref=sr_nr_p_36_0_0&low-price=&high-price=' }
+        ],
+        'Luxury ₹4,000+':[
+        { label: 'Pepperfry', url: 'https://www.pepperfry.com/site_product/search?q=home%20decor%20lights&requestPlatform=web&sort_field=price&sort_by=desc&price=0-4000&page=1&sort_name=Highest%20Priced%20First' },
+        { label: 'The White Teak Company', url: 'https://www.whiteteak.com/catalogsearch/result/index/?price=0-10210&product_list_order=price&q=home+decor+lights' },
+        { label: 'HomeCentre', url: 'https://www.homecentre.in/in/en/c/decor-lighting?q=%3Aindex%3Aprice-revers&price=209,10000&range=209,4265' },
+
+        ]
+      }
+    };
+
+    /* Product-specific sentence templates for Shirt, Pant, Shoe (user requested).
+       Keys are product names and values map exact range-labels to arrays of templates.
+       Templates may include {store} and will be rotated by index so each store shows a different line.
+    */
+    const productRangeSentences = {
+      Shirt: {
+        'Budget ₹100 - ₹500': [
+          "Myntra sold hundreds to thousands of purchases per month in range of  ₹100–₹500,with average rating 4.0–4.2 stars out of 5",
+          " ~ 187 million unique transacting users to buy shirts in Meesho at range of rs100 to rs500 by end-2024,with average tating -  3.9–4.2 stars out of 5 .",
+          "Snapdeal sold thousands of shirts in the ₹100–₹500 range last year, with average ratings around 3.9/5 stars. "
+        ],
+        'Mid Range ₹500 - ₹1000': [
+          "Ajio sold thousands of shirts in the ₹500–₹1000 range last year, with average ratings around 4.5/5 stars.",
+          "TataCliq sold thousands of shirts in the ₹500–₹1000 range last year, with average ratings around 4.1/5 stars.",
+          "Snapdeal sold thousands of shirts in the ₹500–₹1000 range last year, with average ratings around 4/5 stars. "
+        ],
+        'Luxary ₹1000 - ₹2000': [
+          "TataCliq sold thousands of shirts in the ₹1000–₹2000 range last year, with average ratings around 4.3/5 stars.",
+          "Ajio sold thousands of shirts in the ₹1000–₹2000 range last year, with average ratings around 4.2/5 stars. ",
+          "Myntra sold tens of thousands of shirts in the ₹1000–₹2000 range last year, with average ratings around 4.2/5 stars.",
+          " Nykaa Fashion sold thousands of shirts in the ₹1000–₹2000 range last year, with average ratings around 4.2/5 stars. "
+        ]
+      },
+      Pant: {
+        'Budget ₹100 - ₹500': [
+          " Limeroad sold thousands of pants in the ₹100–₹500 range last year, with average ratings around 4/5 stars",
+          "Snapdeal sold thousands of pants in the ₹100–₹500 range last year, with average ratings around 3.9/5 stars. ",
+          "Meesho sold thousands of pants in the ₹100–₹500 range last year, with average ratings around 3.9/5 stars."
+        ],
+        'Mid Range ₹500 - ₹1000': [
+          " Myntra sold tens of thousands of pants in the ₹500–₹1000 range last year, with average ratings around 4.2/5 stars.",
+          " Ajio sold thousands of pants in the ₹500–₹1000 range last year, with average ratings around 4.2/5 stars. ",
+          "TataCliq sold thousands of pants in the ₹500–₹1000 range last year, with average ratings around 4.2/5 stars.",
+          " Snapdeal sold thousands of pants in the ₹500–₹1000 range last year, with average ratings around 4/5 stars."
+        ],
+        'Luxary ₹1000 - ₹2000': [
+          "Ajio sold thousands of pants in the ₹1000–₹2000 range last year, with average ratings around 4.3/5 stars. ",
+          "TataCliq sold thousands of pants in the ₹1000–₹2000 range last year, with average ratings around 4.3/5 stars.",
+          "Nykaa Fashion sold thousands of pants in the ₹1000–₹2000 range last year, with average ratings around 4.2/5 stars. ",
+          "Myntra sold tens of thousands of pants in the ₹1000–₹2000 range last year, with average ratings around 4.3/5 stars."
+        ]
+      },
+      Shoe: {
+        'Normal ₹100 - ₹500': [
+          "Myntra sold thousands of shoes in the ₹100–₹500 range last year, with average ratings around 4/5 stars.",
+          "Snapdeal sold thousands of shoes in the ₹100–₹500 range last year, with average ratings around 4/5 stars. ",
+          "Metro Shoes sold thousands of shoes in the ₹100–₹500 range last year, with average ratings around 4/5 stars."
+        ],
+        'Budget ₹500 - ₹1000': [
+          " Myntra sold tens of thousands of shoes in the ₹500–₹1000 range last year, with average ratings around 4.2/5 stars. ",
+          " Ajio sold thousands of shoes in the ₹500–₹1000 range last year, with average ratings around 4.1/5 stars. ",
+          "TataCliq sold thousands of shoes in the ₹500–₹1000 range last year, with average ratings around 4.2/5 stars. ",
+          "Snapdeal sold thousands of shoes in the ₹500–₹1000 range last year, with average ratings around 4/5 stars."
+        ],
+        'Mid Range ₹1000 - ₹2000': [
+          "Myntra sold tens of thousands of shoes in the ₹1000–₹2000 range last year, with average ratings around 4.3/5 stars. ",
+          "Ajio sold thousands of shoes in the ₹1000–₹2000 range last year, with average ratings around 4.2/5 stars.",
+          "TataCliq sold thousands of shoes in the ₹1000–₹2000 range last year, with average ratings around 4.3/5 stars.",
+          " Snapdeal sold thousands of shoes in the ₹1000–₹2000 range last year, with average ratings around 4.1/5 stars. "
+        ],
+        'Luxary ₹2000 - ₹5000': [
+          "TataCliq sold thousands of shoes in the ₹2000–₹5000 range last year, with average ratings around 4.3/5 stars. ",
+          "Nykaa sold thousands of shoes in the ₹2000–₹5000 range last year, with average ratings around 4.2/5 stars.",
+          " Myntra sold tens of thousands of shoes in the ₹2000–₹5000 range last year, with average ratings around 4.4/5 stars.",
+          " Ajio sold thousands of shoes in the ₹2000–₹5000 range last year, with average ratings around 4.3/5 stars. "
+        ],
+      },
+       Accessories:{
+        'Budget ₹500 - ₹1,500':[
+          "Heybae sold thousands of accessories in the ₹500–₹1,500 range last year, with average ratings around 4.2/5 stars. ",
+          " Nithilah  sold thousands of accessories in the ₹500–₹1,500 range last year, with average ratings around 4.1/5 stars.",
+          " vivazs sold thousands of accessories in the ₹500–₹1,500 range last year, with average ratings around 4.0/5 stars. ",
+          "Tatacliq sold thousands of accessories in the ₹500–₹1,500 range last year, with average ratings around 4.0/5 stars"
+        ],
+        'Mid Range ₹1,500 - ₹3,000':[
+          "vivazs sold thousands of accessories in the ₹1,500–₹3,000 range last year, with average ratings around 4.3/5 stars.",
+          "OMIP fashion sold thousands of accessories in the ₹1,500–₹3,000 range last year, with average ratings around 4.2/5 stars. ",
+          "Taramimi sold thousands of accessories in the ₹1,500–₹3,000 range last year, with average ratings around 4.1/5 stars.",
+          "zevarly sold thousands of accessories in the ₹500–₹1,500 range last year, with average ratings around 4.0/5 stars ",
+          "FAD India sold thousands of accessories in the ₹500–₹1,500 range last year, with average ratings around 4.0/5 stars"
+        ],
+        'Luxary ₹3,000 - ₹5,000':[
+          "Tatacliq sold thousands of accessories in the ₹3,000–₹5,000 range last year, with average ratings around 4.4/5 stars. ",
+          "Mismerime India sold thousands of accessories in the ₹3,000–₹5,000 range last year, with average ratings around 4.3/5 stars.",
+          " kaithra sold thousands of accessories in the ₹3,000–₹5,000 range last year, with average ratings around 4.2/5 stars. "
+        ]
+       },
+        
+        Mixers:{
+          'Budjet ₹5,000 - ₹10,000':[
+          " Moglix sold thousands of kitchen mixer grinders in the ₹5000–₹10,000 range last year, with average ratings around 4.4/5 stars.",
+          " Bajaj Mall sold thousands of mixer grinders in the ₹5000–₹10,000 range last year, with average ratings around 4.3/5 stars.",
+          " Sujatha Appliances sold thousands of mixer grinders in the ₹5000–₹10,000 range last year, with average ratings around 4.2/5 stars."
+          ],
+          'Mid Range ₹10,000 - ₹20,000':[
+          " Preethi sold thousands of kitchen mixer grinders in the ₹10,000–₹20,000 range last year, with average ratings around 4.5/5 stars.",
+          " Sujatha Appliances sold thousands of mixer grinders in the ₹10,000–₹20,000 range last year, with average ratings around 4.4/5 stars.",
+          " Moglix sold thousands of mixer grinders in the ₹10,000–₹20,000 range last year, with average ratings around 4.3/5 stars.",
+          " Big Basket sold thousands of mixer grinders in the ₹10,000–₹20,000 range last year, with average ratings around 4.2/5 stars."
+          ],
+          "Luxary ₹20,000+" :[
+          " Reliance Digital sold thousands of kitchen mixer grinders in the ₹20,000+ range last year, with average ratings around 4.5/5 stars.",
+          " Prestige sold thousands of mixer grinders in the ₹20,000+ range last year, with average ratings around 4.4/5 stars.",
+          " Amazon sold thousands of mixer grinders in the ₹20,000+ range last year, with average ratings around 4.3/5 stars."
+          ] 
+        },
+        Refrigerator:{
+          'Budget ₹10,000 - ₹12,000':[
+          " Smartprix sold thousands of refrigerators in the ₹10,000–₹12,000 range last year, with average ratings around 4.1/5 stars.",
+          " Pricedheko sold thousands of refrigerators in the ₹10,000–₹12,000 range last year, with average ratings around 4.0/5 stars.",
+          " Lotus Electronics sold thousands of refrigerators in the ₹10,000–₹12,000 range last year, with average ratings around 4.1/5 stars.",
+          " Moglix sold thousands of refrigerators in the ₹10,000–₹12,000 range last year, with average ratings around 4.0/5 stars."
+          ],
+          'Mid Range ₹20,000 - ₹50,000':[
+          " Whirlpool sold thousands of refrigerators in the ₹20,000–₹50,000 range last year, with average ratings around 4.3/5 stars.",
+          " Voltas sold thousands of refrigerators in the ₹20,000–₹50,000 range last year, with average ratings around 4.2/5 stars.",
+          " Samsung sold thousands of refrigerators in the ₹20,000–₹50,000 range last year, with average ratings around 4.4/5 stars."
+          ],
+          'Luxary ₹50,000 - ₹1,00,000':[
+          " Samsung sold thousands of refrigerators in the ₹50,000–₹1,00,000 range last year, with average ratings around 4.5/5 stars.",
+          " Reliance Digital sold thousands of refrigerators in the ₹50,000–₹1,00,000 range last year, with average ratings around 4.4/5 stars.",
+          " Lotus Electronics sold thousands of refrigerators in the ₹50,000–₹1,00,000 range last year, with average ratings around 4.3/5 stars.",
+          " Bajaj Mall sold thousands of refrigerators in the ₹50,000–₹1,00,000 range last year, with average ratings around 4.2/5 stars."
+          ]
+        },
+        'Washing Machine':{
+          'Budget ₹15,000 - ₹30,000':[
+          " My Smartprice sold thousands of washing machines in the ₹15,000–₹30,000 range last year, with average ratings around 4.1/5 stars.",
+          " Reliance Digital sold thousands of washing machines in the ₹15,000–₹30,000 range last year, with average ratings around 4.3/5 stars.",
+          " Bajaj Mall sold thousands of washing machines in the ₹15,000–₹30,000 range last year, with average ratings around 4.2/5 stars."
+          ],
+          'Mid Range ₹30,000 - ₹50,000':[
+          " Smartprix sold thousands of washing machines in the ₹30,000–₹50,000 range last year, with average ratings around 4.3/5 stars.",
+          " Pricedheko sold thousands of washing machines in the ₹30,000–₹50,000 range last year, with average ratings around 4.2/5 stars.",
+          " Reliance Digital sold thousands of washing machines in the ₹30,000–₹50,000 range last year, with average ratings around 4.4/5 stars."
+          ],
+          'luxary ₹50,000+':[
+          " Smartprix sold thousands of washing machines in the ₹50,000+ range last year, with average ratings around 4.4/5 stars.",
+          " Reliance Digital sold thousands of washing machines in the ₹50,000+ range last year, with average ratings around 4.3/5 stars.",
+          " Pricedheko sold thousands of washing machines in the ₹50,000+ range last year, with average ratings around 4.2/5 stars."
+          ]
+        },
+        'Fans':{
+          'Budjet ₹1,000 - ₹3,000':[
+          " Smartprix sold thousands of fans in the ₹1,000–₹3,000 range last year, with average ratings around 4.2/5 stars.",
+          " Moglix sold thousands of fans in the ₹1,000–₹3,000 range last year, with average ratings around 4.0/5 stars.",
+          " Lotus Electricals sold thousands of fans in the ₹1,000–₹3,000 range last year, with average ratings around 4.1/5 stars."
+          ],
+          'Mid Range ₹3,000 - ₹12,000':[
+          " Lotus Electronics sold thousands of fans in the ₹3,000–₹12,000 range last year, with average ratings around 4.3/5 stars.",
+          " Bajaj Mall sold thousands of fans in the ₹3,000–₹12,000 range last year, with average ratings around 4.2/5 stars.",
+          " Moglix sold thousands of fans in the ₹3,000–₹12,000 range last year, with average ratings around 4.1/5 stars.",
+          " Orient Electric sold thousands of fans in the ₹3,000–₹12,000 range last year, with average ratings around 4.2/5 stars."
+          ],
+          'Luxary ₹12,000 - ₹22,000':[
+          " Lotus Electronics sold thousands of fans in the ₹12,000–₹22,000 range last year, with average ratings around 4.4/5 stars.",
+          " Bajaj Mall sold thousands of fans in the ₹12,000–₹22,000 range last year, with average ratings around 4.3/5 stars.",
+          " Poorvika sold thousands of fans in the ₹12,000–₹22,000 range last year, with average ratings around 4.2/5 stars."
+          ]
+        },
+        Light: {
+          'Budget ₹200 - ₹1,000':[
+            " Meesho sold thousands of lights in the ₹200–₹1,000 range last year, with average ratings around 4.1/5 stars.",
+            " Snapdeal sold thousands of lights in the ₹200–₹1,000 range last year, with average ratings around 4.0/5 stars.",
+            " ShopClues sold thousands of lights in the ₹200–₹1,000 range last year, with average ratings around 4.2/5 stars.",
+            " Shopsy sold thousands of lights in the ₹200–₹1,000 range last year, with average ratings around 4.1/5 stars."
+    
+            ],
+            'Mid Range ₹1000+':[
+            " Crompton sold thousands of lights in the ₹1,000+ range last year, with average ratings around 4.3/5 stars.",
+            " Philips sold thousands of lights in the ₹1,000+ range last year, with average ratings around 4.2/5 stars.",
+            " Havells sold thousands of lights in the ₹1,000+ range last year, with average ratings around 4.4/5 stars."
+            ],
+            'Luxury ₹4,000+':[
+            " Crompton sold thousands of lights in the ₹4,000+ range last year, with average ratings around 4.5/5 stars.",
+            " The White Teak Company sold thousands of lights in the ₹4,000+ range last year, with average ratings around 4.4/5 stars.",
+            " Philips sold thousands of lights in the ₹4,000+ range last year, with average ratings around 4.3/5 stars."
+            ]
+
+
+      },
+      Perfumes: {
+        'Budget ₹300 - ₹1,500':[
+          " Nykaa sold thousands of perfumes in the ₹300–₹1,500 range last year, with average ratings around 4.2/5 stars.",
+          " Purplee sold thousands of perfumes in the ₹300–₹1,500 range last year, with average ratings around 4.1/5 stars.",
+          " Snapdeal sold thousands of perfumes in the ₹300–₹1,500 range last year, with average ratings around 4.0/5 stars.",
+          " FNP (Ferns N Petals online store) sold thousands of perfumes in the ₹300–₹1,500 range last year, with average ratings around 4.1/5 stars."
+          ],
+          'Mid Range ₹2,000 - ₹10,000':[
+          " Nykaa sold thousands of perfumes in the ₹2,000–₹10,000 range last year, with average ratings around 4.3/5 stars.",
+          " Purplee sold thousands of perfumes in the ₹2,000–₹10,000 range last year, with average ratings around 4.2/5 stars.",
+          ],
+          'Luxury ₹10,000+':[
+          " Perfumex sold thousands of perfumes in the ₹10,000+ range last year, with average ratings around 4.5/5 stars.",
+          " Perfume Palace sold thousands of perfumes in the ₹10,000+ range last year, with average ratings around 4.4/5 stars.",
+          " The Perfume Shop sold thousands of perfumes in the ₹10,000+ range last year, with average ratings around 4.3/5 stars."
+          ]
+      },
+      Sofas: {
+        'Budget ₹10,000 - ₹20,000':[
+          " Wooden street sold thousands of sofas in the ₹10,000–₹20,000 range last year, with average ratings around 4.2/5 stars.",
+          " Wakefit sold thousands of sofas in the ₹10,000–₹20,000 range last year, with average ratings around 4.1/5 stars.",
+          " Duroflex sold thousands of sofas in the ₹10,000–₹20,000 range last year, with average ratings around 4.0/5 stars.",
+          ],
+          'Mid Range ₹20,000 - ₹70,000':[
+          " Woodenstreet sold thousands of sofas in the ₹20,000–₹70,000 range last year, with average ratings around 4.3/5 stars.",
+          " Wakefit sold thousands of sofas in the ₹20,000–₹70,000 range last year, with average ratings around 4.2/5 stars.",
+          " Pepperfry sold thousands of sofas in the ₹20,000–₹70,000 range last year, with average ratings around 4.4/5 stars.",
+          " Urbanladder sold thousands of sofas in the ₹20,000–₹70,000 range last year, with average ratings around 4.2/5 stars."
+          ],
+          'Luxury ₹70,000+':[
+          " Pepperfry sold thousands of sofas in the ₹70,000+ range last year, with average ratings around 4.5/5 stars.",
+          " Wooden Bazar sold thousands of sofas in the ₹70,000+ range last year, with average ratings around 4.4/5 stars.",
+          " Chairs & Company sold thousands of sofas in the ₹70,000+ range last year, with average ratings around 4.3/5 stars.",
+          " Furnishka sold thousands of sofas in the ₹70,000+ range last year, with average ratings around 4.2/5 stars.",
+          ]
+      },
+      Beds: {
+        'Budget ₹10,000 - ₹15,000':[
+          " Wakefit sold thousands of beds in the ₹10,000–₹15,000 range last year, with average ratings around 4.2/5 stars.",
+          " Ouchcart sold thousands of beds in the ₹10,000–₹15,000 range last year, with average ratings around 4.0/5 stars.",
+          " Pepperfry sold thousands of beds in the ₹25,000–₹50,000 range last year, with average ratings around 4.3/5 stars."
+          ],
+          'Mid Range ₹25,000 - ₹50,000':[
+          " Pepperfry sold thousands of beds in the ₹25,000–₹50,000 range last year, with average ratings around 4.3/5 stars.",
+          " Urbanladder sold thousands of beds in the ₹25,000–₹50,000 range last year, with average ratings around 4.2/5 stars.",
+          " Wakefit sold thousands of beds in the ₹25,000–₹50,000 range last year, with average ratings around 4.4/5 stars.",
+          "Urban wood  sold thousands of beds in the ₹25,000–₹50,000 range last year, with average ratings around 4.4/5 stars."
+          ],
+          'Luxury ₹50,000 - ₹1,00,000':[
+          " Pepperfry sold thousands of beds in the ₹50,000–₹1,00,000 range last year, with average ratings around 4.5/5 stars.",
+          " Urban Ladder sold thousands of beds in the ₹50,000–₹1,00,000 range last year, with average ratings around 4.4/5 stars.",
+          " WoodenStreet sold thousands of beds in the ₹50,000–₹1,00,000 range last year, with average ratings around 4.3/5 stars."
+          ]
+      },
+
+      Chairs: {
+        'Budget ₹1,500 - ₹5,000':[
+          " Amazon sold thousands of chairs in the ₹1,500–₹5,000 range last year, with average ratings around 4.1/5 stars.",
+          " Moglix sold thousands of chairs in the ₹1,500–₹5,000 range last year, with average ratings around 4.0/5 stars.",
+          " Smilesellers sold thousands of chairs in the ₹1,500–₹5,000 range last year, with average ratings around 4.2/5 stars."
+          ],
+          'Mid Range ₹5,000 - ₹12,000':[
+          " Pepperfry sold thousands of chairs in the ₹5,000–₹12,000 range last year, with average ratings around 4.3/5 stars.",
+          " Urban Ladder sold thousands of chairs in the ₹5,000–₹12,000 range last year, with average ratings around 4.2/5 stars.",
+          " WoodenStreet sold thousands of chairs in the ₹5,000–₹12,000 range last year, with average ratings around 4.4/5 stars."
+          ],
+          'Luxury ₹12,000+':[
+          " Pepperfry sold thousands of chairs in the ₹12,000+ range last year, with average ratings around 4.5/5 stars.",
+          " Urban Ladder sold thousands of chairs in the ₹12,000+ range last year, with average ratings around 4.4/5 stars.",
+          " WoodenStreet sold thousands of chairs in the ₹12,000+ range last year, with average ratings around 4.3/5 stars."
+          ]
+      },
+      Curtains: {
+        'Budget ₹300 - ₹1,500':[
+          " Snapdeal sold thousands of curtains in the ₹300–₹1,500 range last year, with average ratings around 4.1/5 stars.",
+          " Shopsy sold thousands of curtains in the ₹300–₹1,500 range last year, with average ratings around 4.0/5 stars.",
+          " Pepper fry sold thousands of curtains in the ₹300–₹1,500 range last year, with average ratings around 4.2/5 stars."
+          ],
+          'Mid Range ₹1,500 - ₹3,500':[
+          " Shopsy sold thousands of curtains in the ₹1,500–₹3,500 range last year, with average ratings around 4.3/5 stars.",
+          " Casa craft by pepper fry sold thousands of curtains in the ₹1,500–₹3,500 range last year, with average ratings around 4.2/5 stars.",
+          " Flipkart sold thousands of curtains in the ₹1,500–₹3,500 range last year, with average ratings around 4.1/5 stars."
+          ],
+          'Luxury ₹3,500+':[
+          " Pepperfry sold thousands of curtains in the ₹3,500+ range last year, with average ratings around 4.5/5 stars.",
+          " WoodenStreet sold thousands of curtains in the ₹3,500+ range last year, with average ratings around 4.4/5 stars.",
+          " Urban Space sold thousands of curtains in the ₹3,500+ range last year, with average ratings around 4.3/5 stars."
+          ]
+      },
+      Lighting: {
+        'Budget ₹500 - ₹1,500':[
+          " Shopsy sold thousands of lighting products in the ₹500–₹1,500 range last year, with average ratings around 4.1/5 stars.",
+          " Snapdeal sold thousands of lighting products in the ₹500–₹1,500 range last year, with average ratings around 4.0/5 stars.",
+          " Chronos Lights sold thousands of lighting products in the ₹500–₹1,500 range last year, with average ratings around 4.2/5 stars."
+          ],
+          'Mid Range ₹1,500 - ₹4,000':[
+          " Chronos Lights sold thousands of lighting products in the ₹1,500–₹4,000 range last year, with average ratings around 4.3/5 stars.",
+          " Pepperfry sold thousands of lighting products in the ₹1,500–₹4,000 range last year, with average ratings around 4.2/5 stars.",
+          " Amazon sold thousands of lighting products in the ₹1,500–₹4,000 range last year, with average ratings around 4.4/5 stars."
+          ],
+          'Luxury ₹4,000+':[
+          " Pepperfry sold thousands of lighting products in the ₹4,000+ range last year, with average ratings around 4.5/5 stars.",
+          " The White Teak Company sold thousands of lighting products in the ₹4,000+ range last year, with average ratings around 4.4/5 stars.",
+          " HomeCentre sold thousands of lighting products in the ₹4,000+ range last year, with average ratings around 4.3/5 stars."
+          ]
+      }
+    };
+
+      
+    /* Generic fallback range sentences (kept in place) */
+    const rangeSentences = {
+      budget: [
+        "Top value pick from {store} — excellent deals right now.",
+        "Budget-friendly option at {store}, great for smart shoppers.",
+        "Low-cost best-seller available on {store}."
+      ],
+      mid: [
+        "{store} offers the best balance of quality and price right now.",
+        "Mid-range favorite: check offers at {store}.",
+        "Customers often choose {store} for reliable mid-range finds."
+      ],
+      luxury: [
+        "Premium & curated selection available on {store}.",
+        "Luxury pick: exclusive collections at {store}.",
+        "High-end choice — see the premium range on {store}."
+      ],
+      normal: [
+        "Popular pick at {store}, recommended by many buyers.",
+        "{store} has good ratings for this category.",
+        "Well-reviewed option available on {store}."
+      ],
+      default: [
+        "{store} — check availability and current offers.",
+        "Available on {store}; click to view current price and deals.",
+        "{store} is listing this item with updated offers."
+      ]
+    };
+
+    /* Utility: choose template set key by inspecting the rangeLabel text */
+    function detectRangeCategory(rangeLabel){
+      if(!rangeLabel) return 'default';
+      const r = rangeLabel.toLowerCase();
+      if(r.includes('budget') || r.includes('budjet') || (r.includes('normal') && r.includes('100'))) return 'budget';
+      if(r.includes('mid') || r.includes('mid range') || r.includes('mid-range')) return 'mid';
+      if(r.includes('lux') || r.includes('luxary') || r.includes('luxury')) return 'luxury';
+      if(r.includes('normal')) return 'normal';
+      return 'default';
+    }
+
+    /* Return a sentence for the given product + rangeLabel + storeLabel.
+       Priority:
+         1) If productRangeSentences[product][rangeLabel] exists -> use it.
+         2) Otherwise fall back to generic rangeSentences determined by detectRangeCategory(rangeLabel).
+       idx is used to rotate templates so each store has a different sentence.
+    */
+    function getSentenceForRange(product, rangeLabel, storeLabel, idx){
+      // Try product-specific mapping first
+      if(product && productRangeSentences[product] && productRangeSentences[product][rangeLabel]){
+        const templates = productRangeSentences[product][rangeLabel];
+        const template = templates[idx % templates.length] || templates[0];
+        return template.replace(/\{store\}/g, storeLabel);
+      }
+
+      // Fallback to generic range templates
+      const cat = detectRangeCategory(rangeLabel) || 'default';
+      const templates = rangeSentences[cat] || rangeSentences['default'];
+      const template = templates[idx % templates.length] || templates[0];
+      return template.replace(/\{store\}/g, storeLabel);
+    }
+
+    /* Render store selection (for items that have direct stores) */
+    function purchase(product){
+      previousPage = document.querySelector('.page.active')?.id || 'page-main';
+      currentProduct = product;
+      renderStoreSelectPage(product);
+      showPage('dynamic-store-select-page');
+    }
+
+    function renderStoreSelectPage(product){
+      const pKey = product;
+      const stores = productStoreMap[pKey] || [];
+      let html = `<div class="purchase-wrapper"><div class="purchase-title">Select a store for "<b>${escapeHtml(product)}</b>"</div>`;
+      if(stores.length){
+        stores.forEach(s => {
+          html += `<button class="store-btn" onclick="window.open('${escapeHtml(s.url)}', '_blank', 'noopener')">
+                    <span style="position:relative;z-index:2">${escapeHtml(s.label)}</span>
+                    <div class="btn-glow"><div class="glow-inner"></div></div>
+                    <div class="btn-halo"></div>
+                  </button>`;
+        });
+      } else {
+        html += `<div style="color:var(--muted);">No store links available for this item.</div>`;
+      }
+      html += `<div class="button-centerbox"><button onclick="showPage(previousPage)">⬅️ Back<div class="btn-glow"><div class="glow-inner"></div></div></button></div></div>`;
+      document.getElementById('dynamic-store-select-page').innerHTML = html;
+    }
+
+    /* Render price range page (unchanged behavior) */
+    function showPriceRangePage(product){
+      previousPage = document.querySelector('.page.active')?.id || 'page-main';
+      currentProduct = product;
+      renderPriceRangePage(product);
+      showPage('dynamic-store-select-page');
+    }
+
+    function renderPriceRangePage(product){
+      const ranges = priceRangeMap[product] || [];
+      let html = `<div class="purchase-wrapper"><div class="purchase-title">Select price range for "<b>${escapeHtml(product)}</b>"</div>`;
+      if(ranges.length){
+        ranges.forEach((r) => {
+          // Pass encoded values to avoid HTML quoting issues and decode in target function
+          const encUrl = encodeURIComponent(r.url);
+          const encProduct = encodeURIComponent(product);
+          const encLabel = encodeURIComponent(r.label);
+          html += `<button class="store-btn" onclick="showRangeStoreChoices('${encUrl}','${encProduct}','${encLabel}')">
+                    <span style="position:relative;z-index:2">${escapeHtml(r.label)}</span>
+                    <div class="btn-glow"><div class="glow-inner"></div></div>
+                    <div class="btn-halo"></div>
+                  </button>`;
+        });
+      } else {
+        html += `<div style="color:var(--muted)">No price ranges found.</div>`;
+      }
+      html += `<div class="button-centerbox"><button onclick="showPage(previousPage)">⬅️ Back<div class="btn-glow"><div class="glow-inner"></div></div></button></div></div>`;
+      document.getElementById('dynamic-store-select-page').innerHTML = html;
+    }
+
+    /* showRangeStoreChoices:
+       This renders the new page the user asked for:
+         - top area: custom sentence (varies by product + range) + STORE button
+         - middle area(s): same pattern
+         - bottom area: same pattern
+       The mapping is defined in rangeStoreOptions and productRangeSentences.
+    */
+    function showRangeStoreChoices(encRangeUrl, encProduct, encRangeLabel){
+      const originalRangeUrl = decodeURIComponent(encRangeUrl || '');
+      const product = decodeURIComponent(encProduct || '');
+      const rangeLabel = decodeURIComponent(encRangeLabel || '');
+
+      previousPage = document.querySelector('.page.active')?.id || 'page-main';
+      currentProduct = product;
+
+      // find the configured store options for this product+range
+      const storeList = (rangeStoreOptions[product] && rangeStoreOptions[product][rangeLabel]) || [];
+
+      // If we don't have a configured set, fall back to offering Flipkart / Amazon / Meesho where possible
+      const fallback = [
+        { label: 'Flipkart', url: originalRangeUrl || 'https://www.flipkart.com' },
+        { label: 'Amazon', url: 'https://www.amazon.in' },
+        { label: 'Meesho', url: 'https://www.meesho.com' }
+      ];
+      const toRender = storeList.length ? storeList : fallback;
+
+      // Build html: top, middle(s), bottom follows toRender order
+      let html = `<div class="purchase-wrapper"><div class="purchase-title">Options for "<b>${escapeHtml(product)} › ${escapeHtml(rangeLabel)}</b>"</div>`;
+      toRender.forEach((s, idx) => {
+        // Use product-specific templates first; rotate by idx so each store line differs
+        const sentence = escapeHtml( getSentenceForRange(product, rangeLabel, s.label, idx) );
+        html += `<div class="store-option" aria-label="store-option-${idx}">
+                  <p>${sentence}</p>
+                  <button class="small-btn" onclick="window.open('${escapeHtml(s.url)}', '_blank', 'noopener')">${escapeHtml(s.label)}</button>
+                </div>`;
+      });
+
+      html += `<div class="button-centerbox"><button onclick="showPage(previousPage)">⬅️ Back<div class="btn-glow"><div class="glow-inner"></div></div></button></div></div>`;
+
+      document.getElementById('dynamic-store-select-page').innerHTML = html;
+      showPage('dynamic-store-select-page');
+    }
+
+    /* Small helper to avoid injection in generated HTML */
+    function escapeHtml(str){
+      return (''+str).replace(/[&<>"'`=\/]/g, function(s){
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','/':'&#x2F;','`':'&#x60;','=':'&#x3D;'}[s];
+      });
+    }
+
+    /* Initialize accessible focus behavior: show main on load */
+    document.addEventListener('DOMContentLoaded', () => {
+      showPage('page-main');
     });
-    html += `<div class="button-centerbox"><button onclick="showPage(previousPage)">⬅️ Back</button></div></div>`;
-    document.getElementById('dynamic-store-select-page').innerHTML = html;
-  }
-</script>
+
+    /* Optional: keyboard navigation support for tests */
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape'){ showPage('page-main'); }
+    });
+  </script>
 </body>
 </html>
